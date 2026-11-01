@@ -1,4 +1,4 @@
-// Reported directly ("이오락의 로딩속도가 매우느리다" - this game's loading speed is very slow):
+// Reported directly (this game's loading speed is very slow):
 // StartScreen.tsx's own background is a plain CSS photo now (see that file's own doc comment) and
 // GameBoardScreen/OnlineLobbyScreen are already lazy() in App.tsx - but this screen and
 // ColorSelector are NOT lazy, and both used to statically import StartScreenBackground directly,

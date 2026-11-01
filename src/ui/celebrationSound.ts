@@ -26,8 +26,7 @@ export function playCaptureSound(): void {
   play(CAPTURE_SOUND_URL)
 }
 
-// Requested directly ("말들이 서로 상대방말을 잡아먹었을때에는 알림만뜨는게 아니라... 재미난 음악효과와
-// 장식효과를 주어야한다" - when pieces eat each other it shouldn't be just a notification, there
+// Requested directly (when pieces eat each other it shouldn't be just a notification, there
 // should be a cool, fun MUSIC effect and decoration too): capture.mp3 (ported as-is from the
 // original prototype's own sound_ficha_comida - see this file's own opening comment) is a bare
 // 0.57s bite hit with no musical character at all - there was no other, more festive asset sitting
@@ -40,9 +39,8 @@ function playCaptureChime(): void {
     const AudioContextCtor = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
     if (!AudioContextCtor) return
     const ctx = new AudioContextCtor()
-    // Reported directly, repeatedly, across many separate sessions ("전에 내가 여러번
-    // 음악효과를 넣으라고말했고... 실지로 반영되지않았다" - I told you several times to add sound
-    // effects, but it was never actually reflected): the plain play(url) sample this function's
+    // Reported directly, repeatedly, across many separate sessions (I told you several times to
+    // add sound effects, but it was never actually reflected): the plain play(url) sample this function's
     // own caller (playCaptureFanfare) also plays has worked the whole time (a bare
     // HTMLAudioElement, far more permissive autoplay-wise almost everywhere) - only ever this
     // file's own synthesized flourishes were missing, which points squarely at the one thing
@@ -93,8 +91,8 @@ export function playCaptureFanfare(): void {
   playCaptureChime()
 }
 
-// Requested directly, alongside the capture fanfare above ("alert를 띄워주는 형식이 멋이없다... 좀
-// 생큼하게" - the current finish moment reads like a plain alert, make it feel fresher/livelier):
+// Requested directly, alongside the capture fanfare above (the current finish moment reads like a
+// plain alert, make it feel fresher/livelier):
 // finish.mp3 (ported the same way as capture.mp3/game-won.mp3 - see this file's own opening
 // comment) is, like those two were, a bare stinger with no build. Same Web Audio technique as
 // playCaptureChime/playWinChime, but its own distinct character: a soft ascending bell arpeggio on
@@ -151,8 +149,8 @@ export function playFinishSound(): void {
   playFinishChime()
 }
 
-// Requested again alongside the capture fanfare above ("우승했을때... 멋진 3D효과와 음악효과" - a
-// cooler 3D effect and sound effect for winning too): game-won.mp3, ported the same way as
+// Requested again alongside the capture fanfare above (a cooler 3D effect and sound effect for
+// winning too): game-won.mp3, ported the same way as
 // capture.mp3/finish.mp3 from the original prototype (sound_partida_finalizada), is a single bare
 // stinger with no build to it - winning the whole game is the biggest moment in a match and it was
 // getting the same one-shot treatment as every smaller pickup. Same technique as playCaptureChime

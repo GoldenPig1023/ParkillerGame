@@ -46,11 +46,10 @@ export type MoveAnimationRequest = MoveAnimationInfo & {
 // at all and so had nothing else slowing it down. Bumped to the client's own stated minimum.
 //
 // Deliberately NOT the same knob as the gap between two different players' own turns - corrected
-// directly after a first attempt conflated the two ("이영상에서와같이... 주사위가 돌아가는시간을
-// 길게 해달라는의미는전혀없다... 빨간팀이 움직인다음 파란팀이되였다고하자 이때 간격차이, 이간격차를
-// 10초로 달라는것이다" - I never meant to make the dice-spin time itself longer, it should spin a
-// normal length; what I meant is the gap specifically when it hands off from one team to a
-// different one). See TURN_CHANGE_HOLD_MS below for that separate knob - kept in sync with
+// directly after a first attempt conflated the two (I never meant to make the dice-spin time
+// itself longer, it should spin a normal length; what I meant is the gap specifically when it
+// hands off from one team to a different one). See TURN_CHANGE_HOLD_MS below for that separate
+// knob - kept in sync with
 // botController.ts's own DICE_SPIN_MS, which must change together with this one (see its own
 // matching comment).
 const DICE_SPIN_MS = 2000
@@ -66,9 +65,9 @@ const DICE_SPIN_MS = 2000
 // unified under this one constant since every genuine handoff now gets held the same way
 // regardless of whether a no-move message needs to stay readable through it too.
 //
-// Set to 3000, not the 10000 first tried here - correcting again, directly ("이것이 너무길다
-// 클라이언트가 말한대로 해야한다" - this is too long, it has to match what the client actually
-// said): 10 seconds was this session's own guess, never something Carlos asked for. His own
+// Set to 3000, not the 10000 first tried here - correcting again, directly (this is too long, it
+// has to match what the client actually said): 10 seconds was this session's own guess, never
+// something Carlos asked for. His own
 // consistently repeated number, across three separate reports, is 2-3 seconds ("Tienes que dejar
 // una latencia de dos segundos entre movimientos", "una latencia de 2-3 segundos bastaría", "al bot
 // dejale 2 o 3 segundos nada mas") - matching the upper end of that same range.
@@ -100,8 +99,8 @@ export function useTurnManager(turnManager: TurnManagerLike) {
   const [winner, setWinner] = useState<PlayerState | null>(null)
   const [moveAnimation, setMoveAnimation] = useState<MoveAnimationRequest | null>(null)
   const [parkillerAnimation, setParkillerAnimation] = useState<ParkillerMoveResult | null>(null)
-  // Requested directly ("주사위가 돌아가는시간과... 말들이 움직이는시간이 일치하지않을때있다" - the
-  // dice-spin timing and the piece-movement timing don't match sometimes): moveAnimation/
+  // Requested directly (the dice-spin timing and the piece-movement timing don't match
+  // sometimes): moveAnimation/
   // parkillerAnimation are set the instant their own events fire (moveAnimationReady/parkillerMoved,
   // both synchronous - TurnManager itself never waits on animation), which is well before this
   // hook's own DICE_SPIN_MS reveal delay below has necessarily finished. A human's own click is

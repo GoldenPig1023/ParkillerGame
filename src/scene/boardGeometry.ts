@@ -1,5 +1,5 @@
-// Reported directly ("말들의 크기를 작게하지말고... 원래의 크기를 가지고 한칸에 들어가게" - don't
-// shrink the pieces, fit them in one square at their real size): two full-size pieces sharing a
+// Reported directly (don't shrink the pieces, fit them in one square at their real size): two
+// full-size pieces sharing a
 // square (a barrier, or the Parkiller landing on a pawn) previously didn't both fit inside a track
 // tile without either overlapping or spilling past its border on the tightest board (6-player,
 // tile ~0.22 world units) - see BoardScene.tsx's own CROWDED_SCALE history for the shrink-based fix
@@ -14,8 +14,8 @@
 // overlap and zero tile-edge overspill - rounded up to 10 for a small margin.
 //
 // Bumped again, 10 -> 12, alongside a matching PIECE_BASE_RADIUS increase (see PieceMesh.tsx):
-// reported directly that pieces now read as too small against the bigger board ("말들의 크기가
-// 너무작다"). Growing pieces without growing the board back out from under them would have eaten
+// reported directly that pieces now read as too small against the bigger board (the pieces are
+// too small). Growing pieces without growing the board back out from under them would have eaten
 // straight back into the zero-overlap margin above, so both grow together, keeping the same ~3%
 // margin ratio (12 / (9.7 * 1.2) ~= 1.03, matching 10/9.7's own ratio) rather than re-introducing
 // the crowding bug this constant was originally raised to fix.
@@ -56,8 +56,8 @@
 // (PieceMesh.tsx) - see that constant's own matching comment for the full reasoning and the real
 // numbers. Direction reversed from every round above: PIECE_BASE_RADIUS kept growing for three more
 // rounds after this constant's own growth stopped at 41, drifting the piece-to-tile ratio the other
-// way until the Parkiller specifically overflowed its own tile ("파키의 크기가너무커서 칸대기의 크기를
-// 벗어난다"). Growing this alongside shrinking the piece (rather than only shrinking the piece,
+// way until the Parkiller specifically overflowed its own tile (the Parki is too big and overflows
+// its tile). Growing this alongside shrinking the piece (rather than only shrinking the piece,
 // which risked reopening ten rounds' worth of "still too small" reports) restores real room for a
 // Parkiller+pawn pair to fit - and stay visibly separated - in one square on every board.
 // Bumped an eleventh time, 50 -> 55, alongside PIECE_BASE_RADIUS's own matching 0.4 -> 0.44

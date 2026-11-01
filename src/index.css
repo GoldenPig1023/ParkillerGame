@@ -43,8 +43,8 @@ button {
    sideways by its own random --drift. Tumbles on all three axes (rotateX/Y/Z, each piece's own
    random --rx/--ry/--rz end value) instead of one flat 2D rotate() - paired with the wrapper's own
    `perspective`, this is what actually makes each piece foreshorten/flip through 3D space as it
-   falls rather than just spinning in the screen plane. Requested directly ("더멋진애니머션효과도
-   넣어달라... 3D효과로" - a fancier animation, as a real 3D effect). */
+   falls rather than just spinning in the screen plane. Requested directly (a fancier animation, as
+   a real 3D effect). */
 @keyframes confetti-fall {
   0% {
     transform: translate3d(0, 0, 0) rotateX(0) rotateY(0) rotateZ(0);
@@ -134,8 +134,8 @@ button {
 
 /* OnlineLobbyScreen's own 'connecting' phase - reported directly: the 3 loading dots under
    "Conectando..." were baked into the hero image as static art, reading as decoration rather than
-   an actual in-progress connection ("현재는 정적인데 진짜 connecting중이라는것으로 알리도록동적으로" -
-   currently static, make it dynamic so it actually signals a real connection happening). The dots
+   an actual in-progress connection (currently static, make it dynamic so it actually signals a
+   real connection happening). The dots
    were cropped out of the image itself (see connecting-hero.png's own history) and replaced with
    these three real elements instead, each given its own --dot-delay so they pulse in a wave
    rather than all together - the classic "still thinking" typing-indicator rhythm, immediately
@@ -167,7 +167,7 @@ button {
 /* OnlineLobbyScreen's own 'menu' phase used to hack around not fitting a short/narrow window with
    a pair of width/height media queries here, forcing individual elements (the mascot, card
    padding, count-pill size...) to different fixed sizes at different breakpoints - reported
-   directly as looking "찌그러져"/distorted at in-between sizes, since a hard per-element cliff
+   directly as looking distorted at in-between sizes, since a hard per-element cliff
    like that makes the mascot and the cards shrink at completely different rates the moment a
    window crosses one breakpoint but not the other. Replaced with useScaleToFit (see that hook's
    own doc comment in OnlineLobbyScreen.tsx) - one uniform CSS transform on the whole panel,

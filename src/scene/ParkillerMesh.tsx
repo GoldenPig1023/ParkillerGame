@@ -21,9 +21,8 @@ import {
 } from './PieceMesh'
 import { useRobustSTL } from './useRobustSTL'
 
-// Reported directly ("주사위결과가 나와서... 그결과를볼 여유시간을 좀 2초정도좀 준다음 파키말이
-// 움직이게해야한다... 결과가 떨어지자마자 급하게 벌써움직이는 현상이잇다" - after the dice result
-// appears, there should be about 2 seconds to actually look at it before the Parki starts moving -
+// Reported directly (after the dice result appears, there should be about 2 seconds to actually
+// look at it before the Parki starts moving -
 // right now it starts moving hastily the instant the result drops): diceSettledAt (this file's own
 // matching prop doc comment) already holds the Parkiller still *during* the dice-spin animation,
 // but releases it the exact instant the spin ends and the real numbers become visible - with no
@@ -72,8 +71,8 @@ function yawTowards(from: [number, number, number], to: [number, number, number]
 // Re-derived directly from a new, far clearer reference the client sent - a proper turnaround
 // sheet (front/3-4/side/back, a wireframe pass, a top-down view, and a dimensioned front
 // elevation: 40mm tall, 22mm wide at the base) rather than the single angled product photo the
-// previous pass worked from. Reported directly, again, that the previous shape ("전혀 클라이언트가
-// 원하는 스타일이못된다" - not at all the client's style) read as too narrow for its height and had
+// previous pass worked from. Reported directly, again, that the previous shape (not at all the
+// client's style) read as too narrow for its height and had
 // a bulge partway up the hood instead of a clean taper to a point - both visible once actually
 // measured against this sheet: the dimensioned elevation's own 22mm/40mm ratio (0.55, i.e. a base
 // *radius* of ~0.275x total height) is noticeably wider than this model's old ~0.195 ratio, and
@@ -112,15 +111,15 @@ const SCAN_MODEL_RAW_HEIGHT = 33.0007
 const SCAN_MODEL_RAW_FOOTPRINT_RADIUS = 9.0006
 const SCAN_MODEL_SCALE = (PAWN_HEIGHT * 1.65) / SCAN_MODEL_RAW_HEIGHT
 
-// Reported directly ("파키말과 pawn말의 크기는 서로 달라야한다... 높이만 오직 높이만 길게해달라" - the
-// Parki and the pawn need to read as different sizes, the pawn currently reads bigger; stretch
+// Reported directly (the Parki and the pawn need to read as different sizes, the pawn currently
+// reads bigger; stretch
 // only the height, only the height): a uniform SCAN_MODEL_SCALE keeps the Parkiller's own
 // proportions faithful to the real scan, but a taller-not-wider distinction from a pawn was always
 // the actual ask (see PAWN_HEIGHT's own comment above, "clearly bigger... was always about height,
 // not footprint") - a height-only multiplier on top of SCAN_MODEL_SCALE, not a bigger uniform one,
 // grows the figure taller without also puffing out its already-correct (scan-faithful) footprint.
 //
-// Reported directly again ("파키말의 크기가 너무 크다" - the Parki's size is now too big): 1.35 on
+// Reported directly again (the Parki's size is now too big): 1.35 on
 // top of SCAN_MODEL_SCALE's own 1.65x meant a total 2.23x pawn height, which kept compounding every
 // time PAWN_HEIGHT itself grew from a later, separate pawn-size bump - the two requests share the
 // same base height, so a fixed extra multiplier here couldn't help but drift further from "clearly
@@ -461,7 +460,8 @@ export function ParkillerMesh({
   // hops - onHopsComplete still needs to fire exactly once for that, or the caller's own animation-
   // request state (parkillerAnimation) never clears and every gate built on "no animation is
   // currently in flight" (see GameBoardScreen's canRoll/visiblePendingMoves) hangs forever after the
-  // very first such roll. Reported directly ("차례차례대로... 앞장지르는 일이없도록") while fixing exactly
+  // very first such roll. Reported directly (steps should happen in strict order, nothing jumping
+  // ahead) while fixing exactly
   // that gate - caught here first since the gate is only as reliable as this notification.
   useEffect(() => {
     hopIndexRef.current = 0
@@ -534,13 +534,13 @@ export function ParkillerMesh({
       return
     }
 
-    // The client's own explicit instruction, most recently ("중앙홀에서부터 한칸한칸 시작하게
-    // 만들어달" - make it move one square at a time from the center hall): every hop here, including
+    // The client's own explicit instruction, most recently (make it move one square at a time from
+    // the center hall): every hop here, including
     // the ones walking the center-to-loop connecting corridor on the Parkiller's first-ever move
     // (see getParkillerFirstMoveHopWaypoints), uses the same normal HOP_DURATION/bounce treatment as
     // every other hop in the game - no special glide or sped-up segment. A single continuous glide
-    // was tried here directly and reported back as "그냥 뛰여넘어서 가게" (just skipping/jumping over
-    // it) - not the discrete, countable walk asked for.
+    // was tried here directly and reported back as just skipping/jumping over
+    // it - not the discrete, countable walk asked for.
     //
     // See PieceMesh's own matching comment: uses the real, unclamped rawDelta and loops through as
     // many hop segments as that much real time actually covers, instead of clamping elapsed time

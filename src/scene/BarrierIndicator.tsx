@@ -3,21 +3,20 @@ import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import type { Group, Mesh } from 'three'
 
-// Reported directly ("장벽이있다는 효과같은것이 없으니 오락하는사람들이 모를수있다" - there's no
-// effect showing a barrier exists, so players might not notice): two pieces sharing a square
+// Reported directly (there's no effect showing a barrier exists, so players might not notice):
+// two pieces sharing a square
 // already rendered spread apart (see BoardScene's own STACK_OFFSETS), but nothing distinguished
 // "this is a real barrier blocking the path" from "two pieces just happen to be near each other".
 // A persistent ambient effect reads as "something special is happening here" without a tooltip.
 //
-// Rebuilt a third time - reported directly, with a screenshot, as not liking the style at all
-// ("장벽의 스타일이 전혀 맘에들지않는다"), asking specifically for a spiral of star-like lights
-// rising and turning ("별처럼 빛들이 빙빙돌아가면서 우로올라가는 스타일"), clear but not busy
-// ("눈에 알리면서도 번거롭지않는"), and polished ("세련되게" - "이 게임은 잘 만들어야한다").
+// Rebuilt a third time - reported directly, with a screenshot, as not liking the style at all,
+// asking specifically for a spiral of star-like lights rising and turning, clear but not busy,
+// and polished (this game has to be made well).
 // The previous pass's solid amber cone (added purely to stay visible from the game's own shallow
 // camera angle - see the git history on this file) read as a crude spotlight/traffic-cone shape,
 // not a magical effect, and the double counter-rotating ring plus the cone plus the sparkles
 // together were three separate moving elements competing for attention at once - the definition of
-// "번거롭다" (busy/cluttered). This version drops the cone and the second ring entirely: a single
+// busy/cluttered. This version drops the cone and the second ring entirely: a single
 // quiet glow + ring marks the exact square, and a slow-turning double helix of real five-pointed
 // stars (procedural geometry, not a texture) does the actual "something is here" signaling - its
 // own height, not a separate solid shape, is what stays legible from any camera angle, exactly
@@ -32,8 +31,8 @@ const GLOW_BASE_OPACITY = 0.18
 const GLOW_PULSE_AMPLITUDE = 0.08
 
 // Two strands, each STARS_PER_STRAND stars evenly spaced along its own rise so the helix never
-// looks empty partway up, wound STRAND_TURNS times around the square by the top of the rise - "빙빙
-// 돌아가면서" (turning as it goes) needs an actual multi-turn spiral, not just one lazy arc.
+// looks empty partway up, wound STRAND_TURNS times around the square by the top of the rise -
+// turning as it goes needs an actual multi-turn spiral, not just one lazy arc.
 const STRAND_COUNT = 2
 const STARS_PER_STRAND = 5
 const STRAND_TURNS = 1.4

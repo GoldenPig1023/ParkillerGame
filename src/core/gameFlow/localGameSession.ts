@@ -99,7 +99,7 @@ export interface LocalGameSession {
    * (see that field's own doc comment) so GameBoardScreen can run the same selectable-piece
    * indicator for a bot's just-decided move that a human's own choosable piece already gets. */
   botPieceHighlighted?: Listenable<Piece | null>
-  /** Requested directly ("로컬 게임에는 Pause 기능을 넣어라" - add a Pause feature to local games):
+  /** Requested directly (add a Pause feature to local games):
    * GameBoardScreen's own Pause button calls these when it toggles, so a paused game genuinely
    * stops - not just blocking the human's own clicks (which it does unconditionally, hotseat
    * included) but also freezing whichever bots are mid-turn, rather than letting them keep playing
@@ -158,8 +158,8 @@ export function beginLocalGame(
   const turnManager = new TurnManager(board, players, defaultRuleSettings(), dice)
   const startingPlayerResult = turnManager.determineStartingPlayer()
 
-  // Reported directly ("결정되기도전에... 이미 결정되여있으며" - it's already decided before it's
-  // decided; "규칙적으로 돌아가는것같다" - the actual game already seems to be running): start() used
+  // Reported directly (the starting player is already decided before the reveal; the actual game
+  // already seems to be running): start() used
   // to fire here, immediately, before GameBoardScreen's own StartingPlayerModal has even mounted to
   // show the roll-off's "suspense" reveal - determineStartingPlayer() above already commits
   // currentPlayerIndex to the real winner (needed by useTurnManager's very first render either way),

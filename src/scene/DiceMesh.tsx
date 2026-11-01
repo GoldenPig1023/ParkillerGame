@@ -37,9 +37,8 @@ declare global {
 // there (reported directly: the dice were drawn right on top of it) - nudged in from the corner to
 // the gap between that badge and the fleur-de-lis ornament above it instead.
 //
-// CORNER_Z bumped again (1.55 -> 1.75), reported directly with a screenshot ("주사위가 자리길을
-// 침범하고있다 로고가있는 아래쪽으로 약간 내려오게해달라" - the dice are encroaching on the track,
-// move them down slightly toward the logo) - the board's own BOARD_SIZE grew since the "0.091
+// CORNER_Z bumped again (1.55 -> 1.75), reported directly with a screenshot (the dice are
+// encroaching on the track, move them down slightly toward the logo) - the board's own BOARD_SIZE grew since the "0.091
 // normalized units" clearance this constant was originally tuned against, closing that gap on the
 // tightest boards (confirmed directly, in-browser, on 2p/4p/6p: the white dice's own near corner
 // was overlapping the last blue/red track square before this). Moved further toward the Parkiller
@@ -111,7 +110,7 @@ declare global {
 // read clearly as sitting lower than and in front of the white pair (true "underneath"), verified
 // clear of the window edge on all five boards at 16:9, 1.5:1, 4:3 and phone-portrait windows.
 //
-// Reported a sixth time, directly ("자리길을 차지하고있다" - it's occupying the track squares):
+// Reported a sixth time, directly (it's occupying the track squares):
 // clear of the *window* edge is a different thing from clear of the *track*, and this file's own
 // history of measuring window-crop by eye (twice wrong already) had crept into measuring track
 // clearance by eye too - "clear of the track" hadn't actually been checked against the real
@@ -224,8 +223,8 @@ const BLACK_DIE_SIZE = DIE_SIZE * BLACK_DIE_SCALE
 // see diceTrayDiceOverlap.test.ts's own comment for why that test's own model changed to match.
 //
 // Reported again, directly, with a marked screenshot: still read as sitting under the *left*
-// white die specifically, not centered under the pair - "오른쪽으로 좀 이동해줘" (move it right a
-// bit) from that exact spot. Trimmed DX from 0.491 to 0.44 (a smaller leftward pull, so a smaller
+// white die specifically, not centered under the pair - move it right a
+// bit from that exact spot. Trimmed DX from 0.491 to 0.44 (a smaller leftward pull, so a smaller
 // rightward shift overall) - re-checked track clearance (still >= 1.9 world units on board_4p, the
 // tightest, actually improved - moving right increases it) and the overlap clearance above (0.44
 // still clears by 0.51, comfortably above the 0.3 floor), and re-verified clear of the window edge
@@ -233,7 +232,7 @@ const BLACK_DIE_SIZE = DIE_SIZE * BLACK_DIE_SCALE
 //
 // Reported a third time, directly, after CORNER_X/CORNER_Z themselves moved toward the board's own
 // Parkiller badge (see their own doc comment above): still read as sitting to the left rather than
-// centered - "왜 아직 검은 주사위가 왼쪽에 그대로 있니?" (why is the black die still on the left?).
+// centered - why is the black die still on the left?.
 // Root cause: DX's whole reason for existing was never overlap clearance in the first place - at
 // row=0.85, dz alone (0.85 * ROW_SPACING ~= 3.19) already exceeds DIE_SIZE (~2.93), so the Z axis
 // alone was always enough to clear both white dice regardless of DX. DX 0.44/0.491 were both
@@ -369,7 +368,7 @@ function createDiceFaceTexture(value: number, bodyColors: [string, string], pipC
 const NUDGE_BOUNCE_HEIGHT = 0.06 * DICE_SCALE
 const NUDGE_FREQ = 3.2
 
-// Settle punch + sparkle flash, requested directly ("반짝임/펄스" - a flash/pulse the instant a
+// Settle punch + sparkle flash, requested directly (a flash/pulse the instant a
 // roll's result appears): the die used to just stop tumbling and sit there, no reveal moment at
 // all. A brief overshoot scale-bounce plus a quick white flash sphere reads as "the result landed"
 // - both fire together, timed off the same wasRolling->!rolling transition the orientation-settle
@@ -397,8 +396,7 @@ export function DiceMesh({
   /** Mirrors whether onClick would actually roll right now (GameBoardScreen's own canRoll) - onClick
    * itself stays wired unconditionally and just no-ops otherwise, so the hover cursor needs this
    * separate signal to only read as clickable when a click would really do something. Requested
-   * directly ("마우스지시자를 주사위를누를때... cursor-pointer로 만들어달라" - make the mouse cursor a
-   * pointer when hovering the dice). */
+   * directly (make the mouse cursor a pointer when hovering the dice). */
   interactive?: boolean
   /** Horizontal slot among however many dice are laid out together, centered on 0 (e.g. -0.5/0.5
    * for 2 dice) - the caller works out the exact layout since it knows how many dice are on the

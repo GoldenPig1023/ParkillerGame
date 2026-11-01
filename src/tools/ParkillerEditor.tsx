@@ -12,9 +12,8 @@ import { DEFAULT_PARKILLER_CONFIG, ParkillerModel, type ParkillerArmConfig, type
 // as too complicated to use at all.
 //
 // v2 (uniform sliders): body/hood width and waist as single multipliers on the whole existing
-// curve. Simple, but reported directly right after ("굴곡이있는 형태를 구축할수없다... 오직 구모양
-// 원뿔모양... 대칭적인 모양들만" - can't build curved/undulating shapes, only sphere/cone-like
-// uniform shapes) - a fair complaint: a uniform multiplier can make the whole curve bigger or
+// curve. Simple, but reported directly right after (can't build curved/undulating shapes, only
+// sphere/cone-like uniform shapes) - a fair complaint: a uniform multiplier can make the whole curve bigger or
 // smaller, but can't add a waist, move where it flares, or change its proportions at all, since it
 // never touches the individual profile points that actually define the curve's shape.
 //

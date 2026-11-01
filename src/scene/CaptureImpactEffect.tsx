@@ -20,8 +20,8 @@ const PARTICLE_COUNT = 14
 const PARTICLE_LIFETIME = 0.62
 const GRAVITY = 2.6
 
-// Requested again, directly, alongside the win celebration: "우승했을때와... 상대방의 말을
-// 먹었을때의 멋진 3D효과" (a cooler 3D effect for both winning and eating an opponent's piece) -
+// Requested again, directly, alongside the win celebration: a cooler 3D effect for both winning
+// and eating an opponent's piece -
 // the plain colored debris chips above read as impact, but not as anything magical, next to how
 // far DiceRollGlow.tsx's own roll effect has come (soft additive sparkle sprites and real stars
 // instead of flat shapes). Layers a second particle family - real five-pointed stars plus soft

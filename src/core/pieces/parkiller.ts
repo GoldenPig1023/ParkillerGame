@@ -18,8 +18,8 @@ export interface Parkiller {
    * center, per PK1's "finish square in the center of the board"), up to corridorLength once fully
    * crossed onto the shared track (trackPosition only becomes meaningful at that point).
    *
-   * Reported directly, repeatedly, with concrete examples ("한발자국을 움직여야하는데 8+1=9발자국갔다"
-   * - a black die of 1 should mean exactly one square of movement, not 9): earlier attempts treated
+   * Reported directly, repeatedly, with concrete examples (a black die of 1 should mean exactly
+   * one square of movement, not 9): earlier attempts treated
    * the center-to-loop distance as extra movement layered on top of the die (an instant jump, a
    * sped-up walk, a smooth glide, then a normal walk) - all four still moved a total distance of
    * corridorLength + dieValue, which the client rejected every time as not matching the die. The

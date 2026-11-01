@@ -1,5 +1,5 @@
-// Requested directly ("마우스 지시자표시도 애니메이션효과를 넣어멋지게 아이들의 동심에 맞게 만들어줘" -
-// give the mouse cursor indicator an animation too, cool, fitting a child's sense of wonder): a
+// Requested directly (give the mouse cursor indicator an animation too, cool, fitting a child's
+// sense of wonder): a
 // plain CSS `cursor: url(...)` (interactiveCursor.ts's own INTERACTIVE_CURSOR) is a single static
 // image - no browser animates a cursor image, so "animated cursor" can't be done by swapping that
 // value for a fancier one. InteractiveCursorOverlay.tsx renders an actual DOM element that follows

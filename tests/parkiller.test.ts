@@ -1008,8 +1008,8 @@ describe('TurnManager - Parkiller (PK 1-8)', () => {
     })
   })
 
-  // Reported directly ("도착하기전에 이미 먹히울걸 타산해서 가기도전에 갑자기 먼저 사라지는" - the
-  // piece vanishes before even arriving, as if pre-calculated): the scene layer only ever learns
+  // Reported directly (the piece vanishes before even arriving, as if pre-calculated): the scene
+  // layer only ever learns
   // about a move via moveAnimationReady, not by inspecting MoveResult directly - this is the actual
   // event BoardScene subscribes to, so the fix needs verifying at *this* level, not just on
   // applyMove's own return value (parchisRules.test.ts already covers that). Without

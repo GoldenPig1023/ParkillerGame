@@ -182,8 +182,8 @@ function CheckIcon({ size = 16 }: { size?: number }) {
 }
 
 // Reported directly, with a screenshot at a window height where the mascot had shrunk to a tiny
-// fixed size via a CSS breakpoint while the cards below it stayed full-size: "왜 이지러져 나오는지
-// 모르겠다" (I don't know why it comes out distorted) - a hard per-element breakpoint cliff like
+// fixed size via a CSS breakpoint while the cards below it stayed full-size: the client didn't
+// know why it was coming out distorted - a hard per-element breakpoint cliff like
 // that reads as broken the moment a window lands between "big" and "small", since two elements
 // end up shrinking at completely different rates. Scaling the whole panel uniformly instead - one
 // CSS transform, computed from how much taller the panel's own natural/unscaled content is than
@@ -505,8 +505,8 @@ export default function OnlineLobbyScreen() {
   // only a reconnect that genuinely fails (or times out past that same grace window) falls through
   // to the original teardown.
   //
-  // Reported directly again, still frequent even with the above shipped ("소켓통신의 문제인가? 너무
-  //빨리 꺼지는적이많아" - is it a socket issue? it turns off too quickly, often): onConnectionLost's
+  // Reported directly again, still frequent even with the above shipped (is it a socket issue? it
+  // turns off too quickly, often): onConnectionLost's
   // own underlying subscription (photonClient.ts's stateChangeListeners) stays live for as long as
   // this effect is mounted - it never paused itself while a reconnectAndRejoin() attempt was
   // already in flight. reconnectAndRejoin() itself necessarily cycles the client's own state through
@@ -1110,7 +1110,7 @@ export default function OnlineLobbyScreen() {
                 partial fill live there). The button itself is therefore never actually disabled
                 any more - the host can always either start clean (full room) or start-with-bots
                 (anything less), the confirm step is what stands in for a hard block. Once full, a
-                clear banner announces it's ready, matching "다들어왔다는 alert". */}
+                clear banner announces it's ready, matching an "everyone's in" alert. */}
             {seats.length > 1 && seats.length < playerCount && (
               <p style={hintStyle}>
                 Esperando a que se unan todos los jugadores ({seats.length}/{playerCount})... o empiece ya y un bot
@@ -1427,15 +1427,15 @@ const copyCodeButtonStyle: React.CSSProperties = {
 // own - the vh term catches that case too, smoothly, matched below by menuCardStyle's own padding
 // so both continue shrinking in step rather than reintroducing the original per-element mismatch.
 //
-// Reported directly, with a side-by-side current-state vs. target-mockup screenshot ("우선 파키위치를
-// 정확하게 매취시켜달라" - first, match the Parki's position/size precisely to the mockup): the
+// Reported directly, with a side-by-side current-state vs. target-mockup screenshot (first, match
+// the Parki's position/size precisely to the mockup): the
 // mockup's mascot+sign reads as the panel's own dominant header element, not a small icon above it -
 // a past pass (see this file's own git history) had shrunk this same block down (220 -> 165) after
 // the opposite complaint on an earlier, differently-cropped version of parkiller-mascot.png: that
 // context no longer applies now that the client's own asset was swapped back to the wider
 // mascot+dice composition the mockup itself shows. Sized larger again to match.
-// Reported directly, with a screenshot of the target position and a concrete reference ("실례크기를
-// 든다면 margin-top:-135px 정도쯤" - as an example, about the amount margin-top:-135px would move
+// Reported directly, with a screenshot of the target position and a concrete reference (as an
+// example, about the amount margin-top:-135px would move
 // it): pulled up so the hood pokes out past the panel's own top border instead of sitting fully
 // inside it, same "breaks the frame" flourish the mockup itself uses. -135px was measured off that
 // one screenshot's own size, not a fixed constant to reuse as-is - scaled down here by the same

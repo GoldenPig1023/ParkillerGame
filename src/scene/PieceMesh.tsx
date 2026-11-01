@@ -109,9 +109,9 @@ export const PIECE_PROFILE_RAW: [number, number][] = [
 //
 // Bumped a fifteenth time, 0.46 -> 0.4, alongside BOARD_SIZE's own 41 -> 50 (boardGeometry.ts) -
 // reported directly, with a screenshot, that the Parkiller specifically now overflowed its own
-// tile ("파키의 크기가너무커서 칸대기의 크기를 벗어난다"), and asked for pieces to shrink a little AND
-// the board to grow a little, together, so a Parkiller+pawn pair genuinely fits in one square
-// ("한칸에 파키와 말이 같이 두래의 말이 들어갈수잇는 크기로"). Measured directly rather than guessed:
+// tile (the Parkiller is too big and overflows its own tile), and asked for pieces to shrink a
+// little AND the board to grow a little, together, so a Parkiller+pawn pair genuinely fits in one
+// square. Measured directly rather than guessed:
 // the eleventh round above already established BOARD_SIZE=41's own tightest (6-player) tile radius
 // at ~0.739, and PARKILLER_FOOTPRINT_RADIUS (ParkillerMesh.tsx) had drifted to ~0.806 by this
 // constant's own three later rounds (twelfth/thirteenth/fourteenth) growing it without any matching
@@ -159,9 +159,8 @@ const PAWN_TOTAL_HEIGHT = PIECE_PROFILE_RAW[PIECE_PROFILE_RAW.length - 1][1] * P
 // inconsistent ("sometimes smooth, sometimes zips along erratically"). Every hop, on every move,
 // now takes exactly this long - a long reward move simply plays for longer in total, which is a
 // smaller cost than the animation appearing to change speed depending on the roll.
-// Reported directly ("말속도가 너무빠르므로 느리게 해달라 몇발자국이동했는지 가려볼수있게" - the
-// piece speed is too fast, slow it down so it's possible to tell how many squares it moved,
-// especially bots): 0.32 was tuned for a *readable* hop, but not necessarily a *countable* one at
+// Reported directly (the piece speed is too fast, slow it down so it's possible to tell how many
+// squares it moved, especially bots): 0.32 was tuned for a *readable* hop, but not necessarily a *countable* one at
 // a glance, particularly for a bot's own moves where nothing else on screen forces the eye to slow
 // down and count along. Bumped by half again - long reward moves (up to 20 squares) already play
 // longer in total on purpose (see this constant's own comment above on why total playback time
@@ -180,15 +179,15 @@ export const HOP_DURATION = 0.48 // seconds per square hopped - slow enough that
 // bump, still untouched HOP_DURATION, just a bit more arc again.
 export const BOUNCE_HEIGHT = 0.42 // world units, how high each hop arcs - a more emphatic, visible bounce
 
-// Reported directly ("말이 이동할때 통통뛰게 해달라" - make the piece bounce springily when it
+// Reported directly (make the piece bounce springily when it
 // moves): the existing hop was a plain sine arc - smooth up, smooth down, the piece's own shape
 // never changing - which reads as gliding/floating rather than a genuine springy hop. Classic
 // squash-and-stretch is what actually reads as "bouncy".
 //
 // First pass tied both squash and stretch directly to `bounce`/BOUNCE_HEIGHT (height above ground),
 // so the piece was maximally *stretched* exactly at the arc's apex - the one instant it's moving
-// slowest (vertical velocity is zero right at the peak). Reported directly as looking "흐물쩍"
-// (floppy/rubbery) instead of springy: a real bounce stretches while moving fast (just after
+// slowest (vertical velocity is zero right at the peak). Reported directly as looking floppy/rubbery
+// instead of springy: a real bounce stretches while moving fast (just after
 // launch, just before landing) and squashes only in a brief instant at contact, not smoothly
 // ballooning taller for the whole time it hangs near the top. Height-based timing put the biggest
 // deformation exactly where a real object is closest to its resting shape, which reads as slow
@@ -203,8 +202,8 @@ export const BOUNCE_HEIGHT = 0.42 // world units, how high each hop arcs - a mor
 // the very top.
 //
 // Magnitudes pulled in on the first pass here (to 0.85/1.1/1.1/0.95, down from an even earlier
-// 0.8/1.22/1.14/0.92) alongside that timing fix - reported directly afterward as reading "딱딱하고
-// 굳은것처럼" (stiff/rigid) instead of springy. The floppy complaint that motivated the timing
+// 0.8/1.22/1.14/0.92) alongside that timing fix - reported directly afterward as reading
+// stiff/rigid instead of springy. The floppy complaint that motivated the timing
 // rewrite was about *when* the deformation happened (stretching at the apex, the one instant a
 // real object is moving slowest), not really about how big it was - now that squash is genuinely
 // confined to the brief contact window and stretch to the fast-moving middle, a bigger swing reads
@@ -273,8 +272,7 @@ interface PieceMeshProps {
    * animated ring/marker/flash below. Without `isCurrentTurn` at all, before rolling there was no
    * visual indication of which pieces on the board are even yours this turn. */
   isCurrentTurn: boolean
-  /** Reported directly ("봇이게임할때 말을 이동할차례가되여서 이동시킬때에도 자기 차례를 알리는 효과를
-   * 넣어달라" - add the same turn-announcing effect for bot moves too): `selectable` only ever
+  /** Reported directly (add the same turn-announcing effect for bot moves too): `selectable` only ever
    * lights up for a human's own choosable pieces (see GameBoardScreen's own visiblePendingMoves,
    * gated on isMyTurn - always empty during a bot's turn), so a bot's move used to just start
    * hopping with zero anticipatory cue at all, unlike a human's own deliberate click. This carries
@@ -299,8 +297,8 @@ interface PieceMeshProps {
 // piece's head. Kept off pieces that are merely "yours this turn" so the animated effect stays a
 // reliable "you can act on this one" signal instead of lighting up on every piece for the whole turn.
 //
-// Reported directly ("자기차례가 되여서 말을 이동할수있는말들을 시각적으로 알리게 효과를달라" - add a
-// visual effect showing which pieces can be moved on your turn): this cue already existed, but
+// Reported directly (add a visual effect showing which pieces can be moved on your turn): this
+// cue already existed, but
 // verified live it was reading as essentially invisible - MARKER_BASE_Y/MARKER_SIZE were both
 // fixed absolute world-unit constants dating back to PIECE_BASE_RADIUS's very first value (0.065),
 // never updated across nine rounds of piece growth since (now 0.22, a ~3.4x increase). The marker
@@ -312,8 +310,8 @@ interface PieceMeshProps {
 // the previous value read as a faint, easy-to-miss outline once actually checked at real board
 // scale, not the "faceted, and unlit is fine because Colors are Correct" it looked like in the
 // numbers alone.
-// Reported directly, again ("말이 이동할 차례가 되였을 때 효과를 잘알리게해달라" - make the effect
-// clearly noticeable when a piece can move): a live screenshot of the yard showed the cue was
+// Reported directly, again (make the effect clearly noticeable when a piece can move): a live
+// screenshot of the yard showed the cue was
 // there and animating correctly, but essentially camouflaged - both rings and the marker were gold
 // (#ffcc00/#fff4c2), sitting directly on top of the yard slot's own gold decorative ring artwork,
 // so the "you can act on this one" ring blended straight into board art that looks the same
@@ -326,13 +324,13 @@ interface PieceMeshProps {
 // piece" language nothing else on this board uses, so it can't be mistaken for decoration.
 // Reported directly, three times now: first "make it flashier" (a dashed counter-rotating ring, a
 // radar-style expanding ping, and a spiral of sparkle motes rising past a spinning gem marker -
-// four independently-moving pieces at once), then directly reversed ("현재 효과는 너무 번거롭다,
-// 아이들의 동심에 맞게 만들어달라" - the current effect is too busy, make it fit a child's sense of
-// wonder) - the same "too many moving parts competing for attention" verdict BarrierIndicator.tsx's
+// four independently-moving pieces at once), then directly reversed (the current effect is too
+// busy, make it fit a child's sense of wonder) - the same "too many moving parts competing for
+// attention" verdict BarrierIndicator.tsx's
 // own third rebuild already reached (see that file's own doc comment). That rebuild kept one quiet
 // glow + one ring at the base plus a small handful of twinkling five-pointed stars above the head.
-// Reported directly again, with a zoomed screenshot ("밑의 둥근원 이효과는 없애달라 다른효과를
-// 넣어달라" - remove this round ring effect underneath, put a different effect in): the base
+// Reported directly again, with a zoomed screenshot (remove this round ring effect underneath,
+// put a different effect in): the base
 // ring/outline/glow trio, being three overlapping semi-transparent discs sitting flush on the
 // board, read as a smeared multi-hued blob once blended against the board's own busy painted
 // colors underneath (a red track square, in the reported screenshot) rather than as a clean single
@@ -342,26 +340,27 @@ interface PieceMeshProps {
 // (SELECTABLE_EMISSIVE, boosted the same round the piece stopped growing when selectable - see its
 // own doc comment) and the stars above the head, both already-established parts of this same cue,
 // carry the "you can act on this one" signal on their own now.
-// Asked directly right after, for a replacement ("복잡하지않는새로운효과를 넣어달라, 아이들의 동심에
-// 맞게 재미나게" - add a new, uncomplicated effect, fun and fitting a child's sense of wonder): the
+// Asked directly right after, for a replacement (add a new, uncomplicated effect, fun and fitting
+// a child's sense of wonder): the
 // piece itself now hops gently in place (BOB_*, in the idle-position branch below) while selectable
 // - one moving part, no new geometry or color, and a real 3D object bouncing can't blend into the
 // board underneath the way a flat decal could, sidestepping the exact problem the ring above had.
-// Reads as "this piece is excited, pick me" rather than a UI affordance, which is the "동심" ask.
+// Reads as "this piece is excited, pick me" rather than a UI affordance, which is the child's-
+// sense-of-wonder ask.
 // 0.12 read as a faint flutter once actually checked at real board scale - close to BOUNCE_HEIGHT
 // (the real, between-squares hop's own arc) instead, so this reads as an unmistakable little jump,
 // not a shiver.
 const BOB_AMPLITUDE = PAWN_TOTAL_HEIGHT * 0.26
 const BOB_SPEED = 5.6 // radians/sec - abs(sin()) below turns this into ~1.8 little hops/sec
 
-// Reported directly again, live during play, with a wide (not zoomed-in) board screenshot ("이런효과
-//이니까 잘알리지도않는다" - because it's this [quiet] kind of effect, it doesn't even properly let
+// Reported directly again, live during play, with a wide (not zoomed-in) board screenshot (because
+// it's this quiet kind of effect, it doesn't even properly let
 // you know): at real gameplay zoom - not the close-up crops used to check it during development -
 // the star cluster read as a barely-there speck. Sized up in response, then reported directly
 // again, twice more: first "make it fun and cool" (answered with a two-layer glow + a four-color
-// star palette), then, looking at that exact result, "복잡하고 촌스럽다... 장벽효과와 차이나게...
-// 같은 효과, 비슷해서 알아보기 힘들어" (complicated and tacky, and make it different from the
-// barrier effect - right now it's the same effect, similar enough that they're hard to tell apart).
+// star palette), then, looking at that exact result, complicated and tacky, and make it different
+// from the barrier effect - right now it's the same effect, similar enough that they're hard to
+// tell apart.
 // That last complaint is the real diagnosis: a warm gold glow disc behind a cluster of twinkling
 // stars is *structurally* BarrierIndicator.tsx's own signature look (its glow+ring+rising star
 // helix, same warm gold/cream palette) - no amount of retuning size or adding more star colors was
@@ -387,8 +386,7 @@ const STAR_TWINKLE_SPEED = 2.1
 export const PAWN_SIZE_BOOST = 1.25
 export const PAWN_FOOTPRINT_RADIUS = PIECE_BASE_RADIUS * PAWN_SIZE_BOOST
 const IDLE_SCALE = PAWN_SIZE_BOOST
-// Reported directly ("차례가되였을때 말들의 크기를 더크게하지말고 색갈을 좀더 밝고 두드러지게한다거나
-// 다른 새효과를 넣는다던가" - when it's your turn, instead of making the pieces bigger, make the
+// Reported directly (when it's your turn, instead of making the pieces bigger, make the
 // color brighter/more prominent, or add some other new effect instead): a selectable piece's own
 // body used to grow up to SELECTABLE_SCALE (1.3x) on top of the ring/glow/marker cue below - the
 // size change itself is what's being asked to go, not the cue as a whole. The piece's own body now
@@ -552,8 +550,8 @@ export function PieceMesh({
       return
     }
 
-    // Reported directly ("이따금 비루스먹은것처럼 섯다움직이는" - occasionally stutters/freezes like
-    // something's glitching): a slow/dropped real frame (a GC pause, tab throttling, background
+    // Reported directly (occasionally stutters/freezes like something's glitching): a slow/dropped
+    // real frame (a GC pause, tab throttling, background
     // contention) used to have its own elapsed time clamped down to MAX_FRAME_DELTA before
     // advancing the hop's own clock - so a frame that actually took, say, 300ms only advanced the
     // hop's animated time by 33ms, and the piece visibly sat almost still for that stretch (a real

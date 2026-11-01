@@ -6,8 +6,8 @@ import { PIECE_BASE_RADIUS } from './PieceMesh'
 import { BASE_HEIGHT } from './boardGeometry'
 
 // Requested directly, alongside the capture fanfare (see CaptureImpactEffect.tsx's own recent
-// comment): "우승했을때... 멋진 3D효과" (a cooler 3D effect for the moment someone actually wins the
-// whole game). Before this, winning only got the screen-space Confetti.tsx overlay - a real, but
+// comment): a cooler 3D effect for the moment someone actually wins the
+// whole game. Before this, winning only got the screen-space Confetti.tsx overlay - a real, but
 // flat, 2D effect that plays identically no matter which player won. This is a genuine in-Canvas
 // burst at the board's own center hub (the natural focal point every player is already looking at),
 // modeled on FinishCelebrationEffect's ring+flash+rising-sparkle shape (a single piece finishing is

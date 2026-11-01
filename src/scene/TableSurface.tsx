@@ -14,7 +14,7 @@ import * as THREE from 'three'
 // Went through several passes: a realistic dark-walnut wood (reported as reading "basically black"
 // once actually rendered - three.js's default ACES filmic tonemapping compresses dark tones
 // further than they look authored), then an outdoor grass/lawn setting. Landed back on wood
-// directly requested again ("이전처럼 나무 table로 만들어달라") - warmer/brighter than the first
+// directly requested again (make it a wood table like before) - warmer/brighter than the first
 // wood attempt so it doesn't repeat that "basically black" result.
 const GROUND_SIZE = 40
 const GROUND_Y = -0.015 // just under BASE_HEIGHT/the board's own y=0 plane - avoids z-fighting

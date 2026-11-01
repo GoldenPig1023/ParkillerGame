@@ -6,8 +6,8 @@
 // design (see PieceMesh.tsx's own HOP_DURATION comment). Copied as-is into public/sounds/hop.mp3 -
 // no re-encoding, it's already a tiny, web-ready file.
 //
-// Requested directly ("말들을 움직일때의 소리도 3가지로 서로다른 옵션을 택할수잇도록해달라" - the
-// sound for moving pieces should also have 3 different selectable options): the other two options
+// Requested directly (the sound for moving pieces should also have 3 different selectable
+// options): the other two options
 // are that same prototype's sound_burbuja_apretada/sound_burbuja_soltada (a UI "press"/"release"
 // blip pair, ~150ms each) - not originally a movement sound, but the right length/character for a
 // per-hop tick and, being a genuinely distinct pair rather than a single reused clip twice, gives

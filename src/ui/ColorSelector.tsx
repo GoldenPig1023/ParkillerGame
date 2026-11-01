@@ -13,8 +13,8 @@ import type { PieceColor } from '../core/pieceColor'
 // original hotseat mode exactly - this is additive, not a replacement, since pass-and-play is
 // still a real, intentional mode of its own (not just "vs bots minus picking a color").
 // Reported directly, with a screenshot: these read as flat, cheap-looking discs next to the rest
-// of the app's own carved-wood/gold-and-royal-blue polish ("촌스럽다... 품위잇게 값비싼 오락으로" -
-// tacky, make it dignified, like an expensive game). Root cause of the flatness, on top of the
+// of the app's own carved-wood/gold-and-royal-blue polish (tacky, make it dignified, like an
+// expensive game). Root cause of the flatness, on top of the
 // plain styling itself: the previous radial-gradient specified the *same* color at both stops
 // (`${color}, ${color}`) - a no-op that painted a flat fill despite looking like gradient code.
 // Restyled as a real polished gem/marble - a bright off-center specular highlight fading through

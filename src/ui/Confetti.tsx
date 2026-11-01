@@ -7,8 +7,8 @@ import { useMemo } from 'react'
 // GameBoardScreen's own overlayStyle), and a few hundred absolutely-positioned spans animated with
 // CSS keyframes is still far cheaper than spinning up WebGL particles for a one-shot celebration.
 
-// Reported directly ("꽃보라량이 많게... 더멋진애니머션효과... 아이들의 동심에 맞게 3D효과로" - more
-// confetti volume, a fancier animation, a real 3D effect fitting a child's sense of wonder): the
+// Reported directly (more confetti volume, a fancier animation, a real 3D effect fitting a child's
+// sense of wonder): the
 // original single top-down rain of 70 flat 2D ribbons read as one thin sprinkle, gone in a blink.
 // Three changes address each part of that directly:
 // 1. Volume - FALL_COUNT alone is already ~3x the old total, plus two full corner "party popper"

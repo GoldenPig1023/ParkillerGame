@@ -4,14 +4,14 @@ import * as THREE from 'three'
 import type { Group, Mesh } from 'three'
 
 // Requested directly, with a reference image: a magical effect around the three dice while
-// they're actually rolling - "휙 3D효과를 넣어줘" (add a 3D whoosh effect).
+// they're actually rolling - add a 3D whoosh effect.
 //
 // Reported again, twice, refining what "magical" meant here: first that a handful of large stars
-// orbiting in a flat circle should become many small ones bursting outward instead ("작게 많이...
-// 금빛이 뿜어져 나오는것처럼"); then, directly pointing at the flat yellow ring/disc underneath the
-// burst itself, that the whole thing reads as too flat and too circular - "둥근원으로 하지말고
-// 우주계처럼 만들라 너무 형식과 틀에 매이지말고" (don't make it a round circle, make it like a
-// cosmic/solar system - don't be bound by rigid form), and to add white light streaks, gold sand,
+// orbiting in a flat circle should become many small ones bursting outward instead (small and
+// many, like gold light spraying out); then, directly pointing at the flat yellow ring/disc
+// underneath the burst itself, that the whole thing reads as too flat and too circular - don't
+// make it a round circle, make it like a cosmic/solar system, don't be bound by rigid form, and
+// to add white light streaks, gold sand,
 // and blue starlight specifically. Dropped the flat ring/disc entirely (there is no single "ring
 // radius" left in this file - every particle below finds its own place in a real 3D volume around
 // the dice, not on one flat plane) and replaced the single gold-star burst with three particle
@@ -195,7 +195,7 @@ export function DiceRollGlow({ position, radius, visible }: { position: [number,
 
   // White light streaks: each sweeps its own full circle, but that circle's own plane is tilted by
   // a fixed, per-streak quaternion (two axis rotations, seeded off the index) - real orbital planes
-  // crossing at different angles through the same volume, the actual "우주계" (solar-system) read,
+  // crossing at different angles through the same volume, the actual solar-system read,
   // not six copies of the same flat ring.
   const streaks = useMemo<StreakSpec[]>(
     () =>

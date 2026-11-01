@@ -140,10 +140,10 @@ describe('BotController', () => {
     bots.dispose()
   })
 
-  // Reported directly, twice over: first "두번째 옮길차례가 되면 한참있다가 움직인다" (the second
+  // Reported directly, twice over: first that the second
   // move waits a long while - this class used to budget a flat 18-square worst case for the
-  // Parkiller's own hop after every roll, instead of the actual black die rolled), then later
-  // "parki말이 다움직인다음 일반 pawn이 움직이게 해달라" (let the Parkiller finish moving, *then* let
+  // Parkiller's own hop after every roll, instead of the actual black die rolled, then later
+  // "let the Parkiller finish moving, *then* let
   // the regular pawn move - the Parkiller's own hop and a pawn's first move could still overlap,
   // and separately, so could a turn's first and second pawn move). Both are the same root cause:
   // requestRoll()/submitMove() (turnManager.ts) resolve synchronously and re-emit
@@ -230,8 +230,7 @@ describe('BotController', () => {
     bots.dispose()
   })
 
-  // Reported directly ("봇이게임할때 말을 이동할차례가되여서 이동시킬때에도 자기 차례를 알리는 효과를
-  // 넣어달라" - add the same turn-announcing effect for bot moves too): a human's own choosable
+  // Reported directly (add the same turn-announcing effect for bot moves too): a human's own choosable
   // piece gets a whole ring/glow/beam indicator; a bot's move used to have no equivalent cue at
   // all. pieceHighlighted should announce the chosen piece as soon as it's decided (not only right
   // before it submits, so the highlight has time to actually read) and clear back to null once the
@@ -776,8 +775,7 @@ describe('BotController', () => {
     bots.dispose()
   })
 
-  // Corrected directly ("이영상에서와같이... 주사위가 돌아가는시간을 길게 해달라는의미는전혀없다...
-  // 빨간팀이 움직인다음 파란팀이되였다고하자 이때 간격차이, 이간격차를 10초로 달라는것이다" - never
+  // Corrected directly (never
   // meant to lengthen the dice-spin time itself; the actual ask is the gap specifically when a
   // *different* player's turn starts, e.g. red moves, then it becomes blue's turn - that gap should
   // be 10 seconds): TURN_CHANGE_HOLD_MS holds a genuine handoff back by this extra stretch, but
@@ -823,7 +821,7 @@ describe('BotController', () => {
     bots.dispose()
   })
 
-  // Requested directly ("로컬 게임에는 Pause 기능을 넣어라" - add a Pause feature to local games):
+  // Requested directly (add a Pause feature to local games):
   // pause() must cancel whatever this bot currently has scheduled (here, its very first roll,
   // still mid-think-delay) so it genuinely stops acting - not just visually, the way a UI-only
   // overlay would - and resume() must eventually replay that exact same action rather than the bot

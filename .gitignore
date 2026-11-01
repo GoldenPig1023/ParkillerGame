@@ -21,3 +21,8 @@ Thumbs.db
 
 # Old GameMaker Studio prototype, kept locally for reference only - not part of this codebase
 Parkiller_GameMaker-main/
+
+# Design source material and test reports, kept locally only - not part of the shipped game
+etc/
+*.docx
+public/backbutton.png

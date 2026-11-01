@@ -38,7 +38,7 @@ const loader = new STLLoader()
 export const inFlight = new Map<string, Set<(geometry: BufferGeometry) => void>>()
 
 // Reported directly, with three DevTools Network-tab screenshots taken a few seconds apart during
-// a real game ("좀빨리 버튼들을 누르면 이렇게 된다" - if you press the buttons a bit fast, this
+// a real game (if you press the buttons a bit fast, this
 // happens): `parkiller.stl?retry=2` AND `parkiller.stl?retry=3` both showed up as separate,
 // eventually-completed (200) log entries for what should be one logical load, one of them taking
 // 12.67s for a file that (per its own sibling entry) loads in a little over a second once it gets
@@ -117,7 +117,7 @@ export function preloadSTL(url: string): void {
   loadWithRetry(url, 1)
 }
 
-// Reported directly, still missing ("아직보드가 없어지는문제가 발생하고있다" - the board-disappearing
+// Reported directly, still missing (the board-disappearing
 // problem is still happening), reproducing when clicking through the setup screens very fast right
 // after the app loads - the same report's own screenshot showed parkiller.stl sitting as
 // `(canceled)` with nothing after it, same shape as useRobustTexture.ts's own matching bug (see

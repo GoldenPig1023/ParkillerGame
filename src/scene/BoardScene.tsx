@@ -83,7 +83,7 @@ const DEFAULT_POLAR_ANGLE = 0.85 // ~49° off vertical - shallower than before s
 // Scaled a seventh time from 38, proportionally with BOARD_SIZE's own 24 -> 28 (38 * 28/24 ~= 44.3,
 // rounded to 44) - same reasoning as above.
 //
-// Pulled back further still, 44 -> 50 - reported directly ("조금만더 줄일수있게 해달라" - let it be
+// Pulled back further still, 44 -> 50 - reported directly (let it be
 // reduced just a bit more): unlike every earlier CAMERA_DISTANCE change above, this one is not a
 // proportional BOARD_SIZE follow-up - it's a direct ask to shrink the board's own on-screen size a
 // little beyond what that proportional scaling already preserved, independent of piece size.
@@ -105,8 +105,8 @@ const DEFAULT_POLAR_ANGLE = 0.85 // ~49° off vertical - shallower than before s
 // small" request) proportionally (55 * 41/32 ~= 70.5) - keeps the board's own on-screen size
 // exactly where the previous round just correctly landed it, rather than undoing that by leaving
 // this fixed while the board's own world size grows out from under it.
-// Reported directly, with a screenshot from a landscape-phone-shaped window ("지나치게 너무 작게
-// 구현하지말라" - don't render it too small): the board rendered tiny in a sea of background on any
+// Reported directly, with a screenshot from a landscape-phone-shaped window (don't render it too
+// small): the board rendered tiny in a sea of background on any
 // short-but-wide viewport. Root cause was this constant's old partner, a since-removed
 // REFERENCE_MIN_DIMENSION_FACTOR / Math.min(size.width, size.height) heuristic scaled off the
 // viewport's raw CSS-pixel dimensions. That's wrong on two counts, confirmed by direct A/B
@@ -312,7 +312,7 @@ const INTRO_STAGGER = 0.09 // seconds between each piece's drop-in entrance, for
 // instead of one sitting exactly where a lone occupant normally would.
 //
 // Reported directly, a third time, with a screenshot: still spilling past the tile's own drawn
-// border, "무질서하게" (in a disorderly way) - these were fixed *world-unit* offsets, tuned by eye
+// border, in a disorderly way - these were fixed *world-unit* offsets, tuned by eye
 // against roughly one board's own tile size, but real tile size varies noticeably by board
 // (estimateSquareSize: ~0.31 world units on the 3-player board's wide tiles vs. ~0.22 on the
 // 6-player board's narrow ones - see boardGeometry.ts). A fixed offset that looked fine on one
@@ -323,7 +323,7 @@ const INTRO_STAGGER = 0.09 // seconds between each piece's drop-in entrance, for
 // the same proportion of their own tile, not a constant that only happened to fit one of them.
 // Reported directly, a fourth time, with an annotated screenshot: two barrier pawns still reading
 // as spread too far apart, past the tile's own drawn border, on a curved square specifically -
-// "칸대기의 중심에 두개를 배치해달라" (place the two at the tile's own center). The local-frame/
+// place the two at the tile's own center. The local-frame/
 // per-axis clamping above already keeps this construction-correct against true geometric overlap,
 // but the *base* fractions below (what that clamp bounds, not always what it actively kicks in
 // against) were still generous enough to read as crossing the line once the pieces' own rendered
@@ -333,7 +333,7 @@ const INTRO_STAGGER = 0.09 // seconds between each piece's drop-in entrance, for
 //
 // Reported again, a fifth time, with two more screenshots (a pawn+Parkiller pair specifically,
 // one of a color's own safe entry squares): still visibly outside the square's own drawn safe-zone
-// marker - "안쪽에 들어가지못하고 밖으로 삐여져나온다" (not going inward, sticking out). Checked the
+// marker - not going inward, sticking out. Checked the
 // actual numbers this time (real tileSize/radii from generated-boards.json, not a guess): on a
 // *safe* square specifically, the across-axis clamp (SAFE_TILE_WIDTH_MULTIPLIER below) was wide
 // enough that this ±0.13 base fraction never even reached it - the clamp wasn't the binding
@@ -354,8 +354,8 @@ export const STACK_OFFSETS: [number, number][] = [
 
 // Used to shrink crowded pieces (0.6x) so two full-size pieces plus the Parkiller's own larger
 // footprint could actually fit inside the smallest boards' tiles without spilling past their
-// border - reported directly as an inconsistent-size problem in its own right ("말들의 크기를
-// 작게하지말고... 원래의 크기를 가지고" - don't shrink the pieces, keep them at their real size):
+// border - reported directly as an inconsistent-size problem in its own right (don't shrink the
+// pieces, keep them at their real size):
 // pieces visibly changing size depending on whether their square was shared read as a bug, not a
 // clever fix. BOARD_SIZE (boardGeometry.ts) now grows the *tiles* instead - see that constant's own
 // comment for the exact math - which was the actual fix; every occupant of a shared square renders
@@ -408,7 +408,7 @@ function localTangentNormal(waypoints: [number, number][], index: number): { tan
 // call now gets the real max radius for its own two occupants (maxRadiusForGroup below) instead of
 // assuming the worst case everywhere.
 // Leaves a visible gap from the tile's own drawn border, not just enough to avoid true geometric
-// overlap - reported directly, with a screenshot, as still "밟고있다" (stepping on the line) at an
+// overlap - reported directly, with a screenshot, as still stepping on the line at an
 // offset that technically stayed inside the tile's raw half-width.
 //
 // Trimmed again (0.85 -> 0.7), alongside STACK_OFFSETS' own matching trim just above - see that
@@ -432,7 +432,7 @@ export function localStackOffset(
   maxOccupantRadius: number,
 ): [number, number] {
   // Reported directly, with a screenshot: two stacked pieces spilling past the tile's own border,
-  // "밟고있다" (stepping on the line) - these offsets are tuned as *fractions of tileSize* (see
+  // stepping on the line - these offsets are tuned as *fractions of tileSize* (see
   // STACK_OFFSETS' own comment), which scales the *spacing* correctly across every board's own tile
   // size, but says nothing about whether that spacing still clears each occupant's own footprint
   // once PIECE_BASE_RADIUS itself grows (several rounds of "pieces are still too small" since these
@@ -530,7 +530,7 @@ export const SAFE_TILE_WIDTH_MULTIPLIER = 1.8
 
 // Reported directly, with an annotated screenshot of a pawn+Parkiller pair specifically at a
 // color's own safe entry square: still visibly outside the square's own drawn safe-zone marker -
-// "안쪽에 들어가지못하고 밖으로 삐여져나온다" (not going inward, sticking out). Checked the actual
+// not going inward, sticking out. Checked the actual
 // numbers (real tileSize/radii, not a guess - see STACK_OFFSETS' own matching comment): on a safe
 // square, the stacking offset scales with SAFE_TILE_WIDTH_MULTIPLIER's own full 1.8x - well past
 // where the clamp above ever kicks in, so occupants spread out proportionally to how wide the *tile
@@ -662,8 +662,8 @@ function computeMoveHopData(
         ? definition.trackWaypoints[before.trackPosition]
         : lane?.homeCorridorWaypoints[before.corridorPosition]
   if (!beforeWaypoint) return null
-  // PK5, reported directly ("도착하기전에 이미 먹히울걸 타산해서 가기도전에 갑자기 먼저
-  // 사라지는" - it vanishes before even arriving, as if pre-calculated): `after` is already back
+  // PK5, reported directly (it vanishes before even arriving, as if pre-calculated): `after` is
+  // already back
   // to InYard by the time this fires (rules apply instantly - see MoveResult's own doc comment),
   // so getHopWaypoints(before, after) has no square to walk toward at all. Synthesizes the
   // "arrived, still on the track" snapshot getHopWaypoints actually needs to walk there first, in
@@ -722,8 +722,8 @@ export function BoardScene({
   // `!moveAnimation` (same guard the roll button already uses) makes that overwrite impossible - a
   // piece can't be picked for its next move until the current one's animation has actually finished.
   //
-  // Also gated on `!parkillerAnimation` - reported directly ("parki말이 다움직인다음 일반 pawn이
-  // 움직이게 해달라" - let the Parkiller finish moving, then let the regular pawn move): a roll's
+  // Also gated on `!parkillerAnimation` - reported directly (let the Parkiller finish moving, then
+  // let the regular pawn move): a roll's
   // Parkiller hop and its own pendingMoves both arrive from the same synchronous requestRoll() call
   // (turnManager.ts), so without this a piece could be selected and start its own hop while the
   // Parkiller's hop is still visibly playing, reading as two things moving on the board at once.
@@ -1012,8 +1012,7 @@ export function BoardScene({
   // two of the same color's own pieces, blocks nobody else, so this deliberately only looks at
   // `track-` keys, not every crowded key in stackGroups.
   //
-  // Reported directly ("주사위결과가나온다음 말들이 다 움직인다음에 장벽도 생기고 해야겟는데 움직이지도
-  //않고 한참 그자리로 가고잇는데 벌써 장벽이라는 표시가 현시된다" - the barrier should only appear
+  // Reported directly (the barrier should only appear
   // once the pieces have actually finished moving, but it's already showing while the piece is
   // still on its way there, hasn't arrived yet): stackGroups (just above) is built from each
   // piece's own *current* trackPosition/corridorPosition - already updated to its post-move value
@@ -1063,7 +1062,7 @@ export function BoardScene({
       <FitBoardCamera />
       <ambientLight intensity={0.7} />
       <directionalLight position={[4, 8, 2]} intensity={1.1} castShadow />
-      {/* Reported directly, calling the procedural wood table "한심하다" (pathetic): no more 3D
+      {/* Reported directly, calling the procedural wood table poor-looking: no more 3D
           ground plane at all - the Canvas is transparent (gl alpha:true) and the real photo
           (moon.jpg, supplied directly) is the page's own CSS background behind it instead, same
           approach as StartScreen's own background photo. The board now reads as floating over a
@@ -1333,8 +1332,8 @@ export function BoardScene({
   )
 }
 
-// Reported directly ("게임보드판을 축소하고 확대할수있는크기의범위를 규정해달라 지금은 무한대이다" -
-// define a range for how far the board can be zoomed in/out, right now it's unbounded): a fixed
+// Reported directly (define a range for how far the board can be zoomed in/out, right now it's
+// unbounded): a fixed
 // minDistance/maxDistance (the previous version of this component) doesn't actually bound the
 // zoom range consistently - OrbitControls measures against the camera's own *live* position,
 // which FitBoardCamera sets using CAMERA_DISTANCE scaled by the current viewport's own shorter

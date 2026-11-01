@@ -7,9 +7,8 @@ import { PIECE_BASE_RADIUS } from './PieceMesh'
 
 extend({ RoundedBoxGeometry })
 
-// Reported directly, with a screenshot of the earlier flat 2D popup ("이런식으로 만들지 말고 말을
-// 눌렀을때 말우에 주사위가 현시되면서 선택할수잇게 해달라" - not like this, show the dice floating
-// above the piece itself so you can pick from there): a piece reachable by more than one die used to
+// Reported directly, with a screenshot of the earlier flat 2D popup (not like this, show the dice
+// floating above the piece itself so you can pick from there): a piece reachable by more than one die used to
 // open a centered text-button dialog, which read as a generic web form dropped onto an otherwise
 // fully 3D board. These render as small floating markers directly above the clicked piece instead -
 // same glossy rounded-box material language as the real dice (DiceMesh.tsx), just showing a plain
@@ -20,7 +19,7 @@ extend({ RoundedBoxGeometry })
 // CAMERA_SCALE/BOARD_THICKNESS, this project's other "scale with the piece/board" constants - never
 // carried forward through the ten later rounds of piece growth since (now 0.28, a ~4.3x increase).
 // Reported directly, with a screenshot showing the markers crowded into an overlapping cluster
-// above the piece instead of a clean spread row ("선택 주사위들의 현시도 바로해달라" - fix the display
+// above the piece instead of a clean spread row (fix the display
 // of these choice dice too): at the current piece size, the old absolute spacing/size read as tiny
 // and packed tight against a piece more than four times bigger than what they were ever tuned
 // against. Scaled by the same ratio PIECE_BASE_RADIUS itself grew by, restoring the original,

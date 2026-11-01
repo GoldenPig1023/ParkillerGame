@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { subscribeInteractiveCursor } from './interactiveCursorState'
 
-// Requested directly ("마우스 지시자표시도 애니메이션효과를 넣어멋지게 아이들의 동심에 맞게 만들어줘" -
-// give the mouse cursor indicator an animation too, cool, fitting a child's sense of wonder). This
+// Requested directly (give the mouse cursor indicator an animation too, cool, fitting a child's
+// sense of wonder). This
 // replaces interactiveCursor.ts's own static `cursor: url(...)` SVG (a single fixed image - no
 // browser animates a cursor image, so that approach had a hard ceiling) with a real DOM element
 // that follows the pointer, which CSS keyframes can animate freely. Keeps the exact same gold-gem

@@ -43,8 +43,7 @@ function shade(hex: string, percent: number): string {
   return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`
 }
 
-// Reported directly ("잡아먹거나 어떤때 alert화면이 뜰때 너무 빨리 떳다 없어졌다. 자연스럽게 사람이
-// 볼수잇게 알수있게 해달라" - when a capture happens, or some other alert screen shows up, it pops
+// Reported directly (when a capture happens, or some other alert screen shows up, it pops
 // up and vanishes too fast - make it natural, so people can actually see and register it):
 // visiblePendingReward/visibleForfeitedReward/eliminatedByDoubles previously stayed visible only
 // until *whatever happened next* cleared them - most commonly the very next move's own moveApplied
@@ -59,7 +58,7 @@ function shade(hex: string, percent: number): string {
 // toast has actually appeared on screen post-animation-settle - moveApplied unconditionally nulls
 // the raw value on every subsequent move regardless of what that move itself does, so a later,
 // unrelated move's own animation settling again can never make a stale grant "reappear" here.
-// Reported directly ("알림은 약 3초동안은 유지하게해줘" - keep the notification up for about 3
+// Reported directly (keep the notification up for about 3
 // seconds): bumped from 2000 - still squarely inside the client's own previously-stated "2 o 3
 // segundos" range for a bot's own pacing (see HUMAN_REVEAL_HOLD_MS's own doc comment just below),
 // just at the top of it instead of the bottom.
@@ -382,9 +381,8 @@ export function computeAnimationsSettledForPendingMoves<T>(
   return prev
 }
 
-// Reported directly, with a screenshot of the resting dice ("주사위가 항상 말들이 움직인다음에는
-// 이상태로 되돌아갔다가 다시 돌아가게 되여있다... 속도가 너무 빨리 되돌아가니까 내가 도대체 말의
-// 수가 얼마였는지 모르겠다" - after the pieces move the dice always reset and spin again, but it
+// Reported directly, with a screenshot of the resting dice (after the pieces move the dice always
+// reset and spin again, but it
 // resets so fast I can't tell what the roll even was): useTurnManager's own `lastRoll` nulls out
 // the *instant* turnStarted fires - which happens the moment this roll's dice are fully spent, well
 // before there's been any real chance to read the numbers, even for a same-player bonus turn (see
@@ -493,13 +491,12 @@ export function GameBoardScreen({
     }, BOARD_TROUBLE_CHECK_MS)
     return () => clearTimeout(timer)
   }, [definition.boardImage])
-  // Requested directly ("음악을 넣어야겠는데... 3개옵션으로 노래를 선택할수잇게 해달라... 말들을
-  // 움직일때의 소리도 3가지로" - add music, let people choose from 3 song options, and also give
+  // Requested directly (add music, let people choose from 3 song options, and also give
   // the piece-movement sound 3 different options): both preferences already existed as functions
   // (introMusic.ts, hopSound.ts) but were only ever reachable from StartScreen's own settings
   // panel, before a game had even started - this mirrors that same row-of-buttons panel here so a
-  // player can actually change either one mid-game, which is when "노래를 고를수잇도록" (being able
-  // to pick a song) and hearing the result of a hop-sound choice actually matters.
+  // player can actually change either one mid-game, which is when being able
+  // to pick a song and hearing the result of a hop-sound choice actually matters.
   const [showingSoundSettings, setShowingSoundSettings] = useState(false)
   const [musicMuted, setMusicMuted] = useState(isMusicMuted)
   const [trackIndex, setTrackIndex] = useState(getSelectedTrackIndex)
@@ -618,7 +615,8 @@ export function GameBoardScreen({
     return session.botPieceHighlighted?.on((piece) => setBotHighlightedPiece(piece))
   }, [session.botPieceHighlighted])
 
-  // Reported directly ("차례차례대로... 앞장지르는 일이없도록"): the next move's piece choices and any
+  // Reported directly (steps should happen in strict order, nothing jumping ahead): the next
+  // move's piece choices and any
   // reward it earned were exposed the instant the underlying events fired - the same synchronous
   // tick the capturing/finishing move's own hop animation started, not once it actually finished
   // arriving. TurnManager itself never waits on animation (game state always advances the instant a
@@ -632,7 +630,7 @@ export function GameBoardScreen({
   // currentPlayer/pendingMoves haven't visibly changed yet, so canRoll's other conditions alone
   // would let the roller click again mid-hold - the real TurnManager has already moved on
   // internally by that point, so a second roll here would land on the wrong player's turn.
-  // Requested directly ("로컬 게임에는 Pause 기능을 넣어라" - add a Pause feature to local games):
+  // Requested directly (add a Pause feature to local games):
   // blocks the roll button and piece clicks below (same as any other canRoll/visiblePendingMoves
   // gate already does for "not your turn"), and freezes whichever bots are mid-turn via
   // session.pauseBots - see that field's own doc comment. Only ever toggled by the Pause button
@@ -782,8 +780,7 @@ export function GameBoardScreen({
   // a minimum viewing window instead of blanking the instant the turn moves on. Shows a fresh roll
   // immediately once its own spin/reveal actually completes, same as the reward/elimination toasts.
   //
-  // Reported directly ("아직 다 이동하지도 않고 이동하려고 하는 참인데 왜 벌써 주사위는 제자리로
-  // 돌아가..." - the dice reset before the piece has even finished moving): held for the whole
+  // Reported directly (the dice reset before the piece has even finished moving): held for the whole
   // roll, not just a fixed window after the reveal, and never cleared while a piece is still
   // hopping - see heldAlertTiming.ts for both causes.
   const visibleRoll = useHeldAlert(lastRoll, holdMsFor(DICE_DISPLAY_HOLD_MS, currentPlayer.color), {
@@ -850,8 +847,8 @@ export function GameBoardScreen({
   // own board never should have offered it in the first place.
   //
   // Reported directly, with a screenshot: pieces were already glowing/bouncing as selectable while
-  // the dice (specifically the black Parkiller die) were still visibly spinning - "오락의 모든과정은
-  // 하나씩 차례대로 진행되여야한다" (every step of the game should happen one at a time, in order).
+  // the dice (specifically the black Parkiller die) were still visibly spinning - every step of the
+  // game should happen one at a time, in order.
   // Root cause: TurnManager's own moveChoicesReady event fires synchronously as part of resolving
   // the roll, well before the dice-spin's own cosmetic reveal animation (DICE_SPIN_MS,
   // useTurnManager.ts) has actually finished - useTurnManager.ts's own `rolling` flag exists
@@ -949,8 +946,8 @@ export function GameBoardScreen({
     playCaptureFanfare()
     setParkillerVictim(victim)
     const timer = setTimeout(() => setParkillerVictim(null), holdMsFor(ALERT_HOLD_MS, currentPlayer.color))
-    // Reported directly, with a screenshot: the card stayed on screen indefinitely ("없어지지 않고
-    // 계속 유지된다" - doesn't go away, stays there permanently). Root cause: this effect only
+    // Reported directly, with a screenshot: the card stayed on screen indefinitely (doesn't go
+    // away, stays there permanently). Root cause: this effect only
     // depends on animationsSettled, so if it flips back to false again (a new roll/move starting)
     // before this timer's own holdMs elapses, React runs this cleanup - clearTimeout(timer) alone -
     // and the effect body then bails out immediately on its own next invocation (animationsSettled
@@ -1362,7 +1359,7 @@ function PlayerPill({ player, isCurrentTurn, isLocal }: { player: PlayerState; i
   )
 }
 
-// Reported directly, calling the procedural 3D wood table "한심하다" (pathetic): the game's own
+// Reported directly, calling the procedural 3D wood table poor-looking: the game's own
 // ground plane (scene/TableSurface.tsx) is gone entirely now - BoardScene's Canvas is transparent
 // and this real photo (moon.jpg, supplied directly) is the page's own CSS background behind it
 // instead, same approach as StartScreen's own background photo. `cover` so it always fills the
@@ -1661,7 +1658,7 @@ const overlayStyle: React.CSSProperties = {
 
 // Same full-screen click target as overlayStyle above, but rendered above BoardScene rather than
 // as a modal choice - covers the whole play area so a click ANYWHERE dismisses it (reported
-// directly: "화면의 아무런 자리에 클릭하면 다시 할수있게 해달라"), not just a single button.
+// directly: let a click anywhere on the screen resume it), not just a single button.
 const idleWarningOverlayStyle: React.CSSProperties = {
   position: 'absolute',
   inset: 0,

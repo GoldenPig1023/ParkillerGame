@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { heldAlertClearDelayMs } from '../src/ui/heldAlertTiming'
 
 // See heldAlertTiming.ts - the dice used to reset to their default face while a piece was still
-// hopping ("왜 벌써 주사위는 제자리로 돌아가 얼마만큼 움직여야 하는지 알 수 없게 하니").
+// hopping (so you couldn't tell how far it still had to move).
 describe('heldAlertClearDelayMs', () => {
   const base = { elapsedMs: 0, holdMs: 3800, lingerMs: 1500, msSinceUnblocked: 0, blocked: false }
 

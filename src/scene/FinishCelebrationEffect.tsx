@@ -18,8 +18,8 @@ import { BASE_HEIGHT } from './boardGeometry'
 // matching it, the same lesson applied here that fixed the selectable cue.
 const RING_HEIGHT = BASE_HEIGHT + 0.015
 
-// Reported directly ("중앙홀에 성공적으로 종착점에 가닿았을때에도 효과를 넣어달라" - add an effect when
-// a piece successfully reaches the finish square in the central hall too): a piece that finishes
+// Reported directly (add an effect when a piece successfully reaches the finish square in the
+// central hall too): a piece that finishes
 // just hops into its home-corridor slot like any other move, with nothing marking the moment a
 // player actually got a piece all the way home - the biggest single accomplishment for one piece in
 // the whole game, otherwise indistinguishable from a routine step. Modeled after
@@ -41,8 +41,8 @@ const SPARKLE_COUNT = 22
 const SPARKLE_RISE_HEIGHT = PIECE_BASE_RADIUS * 14
 const SPARKLE_COLORS = ['#ffe08a', '#ffd24a', '#fff4c2', '#ffb347']
 
-// Reported directly, again ("alert를 띄워주는 형식이 멋이없다... 좀 생큼하게" - the current version
-// reads like a plain alert popping up, make it feel fresher/livelier): the octahedron gems above
+// Reported directly, again (the current version reads like a plain alert popping up, make it feel
+// fresher/livelier): the octahedron gems above
 // still read as solid confetti rather than anything magical next to how far CaptureImpactEffect's
 // and WinCelebrationEffect's own sparkle layers have come since (real five-pointed stars plus soft
 // additive glints). Layers that same star+glint pair on top of the existing gems here too, rather

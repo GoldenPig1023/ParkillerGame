@@ -13,8 +13,8 @@
 // (nextMusicTrack, wired to a Settings row) instead of the original's silent per-launch random
 // pick - "para elegir" (to choose) was explicit, not just variety for its own sake.
 //
-// Requested directly again ("오락을 하는기간에도... 음악을 넣어야겠는데" - during the gameplay
-// period too, we need music so it's not boring): despite the name, this module's own playback was
+// Requested directly again (during the gameplay period too, we need music so it's not boring):
+// despite the name, this module's own playback was
 // never actually limited to the intro/lobby screens - App.tsx's own screen-driven effect was what
 // silenced it the instant a game started. That's the piece that changed (see App.tsx), not
 // anything here; the same 3 tracks/picker now carry straight through into gameplay.
@@ -30,8 +30,7 @@
 // file's own 256kbps to 160kbps immediately after, the same consistency fix music-3.mp3 got above
 // (2.5MB -> 1.6MB, no audible change at this bitrate for background music).
 //
-// Requested directly ("현재 여기에 있는 5개음악을 모두다 추가해달라, 사람마다 개성이 다르므로 그들이
-// 선택하도록하는것도 좋다" - add all 5 music tracks that are here now, since everyone's taste
+// Requested directly (add all 5 music tracks that are here now, since everyone's taste
 // differs it's good to let them choose): music-1.mp3/music-4.mp3 already existed in public/music/
 // but were never added to this list. Both were sitting at 256kbps (6.0MB/4.7MB) - the same
 // inconsistency music-3.mp3 and intro.mp3 already got re-encoded away above - so re-encoded down to
@@ -51,9 +50,9 @@ export const TRACK_COUNT = TRACKS.length
 
 let audio: HTMLAudioElement | null = null
 
-// Reported directly ("처음시작할때부터하여 오락할때도 항상같은노래가나온다 하지만 지금은 3개가 다섞여서
-// 나오는것같애" - normally the same song plays from the start all the way through gameplay, but now
-// it sounds like all 3 are mixed together): confirmed directly - this app has been reloaded/reopened
+// Reported directly (normally the same song plays from the start all the way through gameplay, but
+// now it sounds like all 3 are mixed together): confirmed directly - this app has been
+// reloaded/reopened
 // many times across a single long testing session, exactly the kind of use that leaves several tabs
 // of it open at once. The `audio` singleton above only dedupes playback *within* one tab - each tab
 // is its own independent JS realm with its own copy of this module, so several tabs each happily

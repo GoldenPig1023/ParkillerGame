@@ -1,5 +1,5 @@
-// Requested directly ("주사위를 던질때도 소리가나게 소리를 넣어달라" - add a sound for when the dice
-// are thrown too): sound_dados_girando.mp3, from the client's own original GameMaker prototype
+// Requested directly (add a sound for when the dice are thrown too): sound_dados_girando.mp3,
+// from the client's own original GameMaker prototype
 // (Parkiller_GameMaker-main/sounds/) - confirmed against that prototype's own source
 // (obj_dado/Other_10.gml: `audio_play_sound(sound_dados_girando, 0, 0)`, fired on every roll) as
 // the actual roll sound, not sound_cambia_dado (a different, UI-only "change die" click used

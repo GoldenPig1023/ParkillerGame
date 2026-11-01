@@ -4,16 +4,16 @@ import { getColor } from '../core/colorPalette'
 
 // PC2.3's third-consecutive-double penalty used to be a single small line buried in the corner HUD
 // ("Tercer dobles seguido: X pierde una ficha") - reported directly, referencing the original
-// GameMaker app's own celebratory win screen as the bar to match ("이렇게 멋진알림도 더 추가해주면
-// 좋겠다" - add more notifications this cool): a piece silently teleporting back to its yard with
+// GameMaker app's own celebratory win screen as the bar to match (add more notifications this
+// cool): a piece silently teleporting back to its yard with
 // no on-screen event at all read as the game just doing something inexplicable, not as a named rule
 // actually firing. Reuses RewardToast/RewardBurst's own established "pop-in card + radial burst"
 // technique (same CSS-particle approach, not a second Three.js system) but in a distinct, cooler
 // penalty palette (smoky grey/red) instead of the reward toast's gold - this is a piece coming HOME
 // off a bad roll, not a prize, and should read that way at a glance.
 const PENALTY_COLORS = ['#c94a4a', '#8f8f8f', '#5c5c5c', '#e0e0e0']
-// Requested directly ("...재미난 음악효과와 장식효과를 주어야한다" - a capture should get fun
-// decoration, not just a notification): 'parkiller' (a Parki eating a pawn outright, PK5) used to
+// Requested directly (a capture should get fun decoration, not just a notification): 'parkiller'
+// (a Parki eating a pawn outright, PK5) used to
 // share the same smoky grey/red palette as 'doubles' - but unlike that case, this genuinely is a
 // capture, not a penalty (see this file's own comment on 'doubles' below), so it gets RewardBurst's
 // own vivid capture palette instead - one consistent "you just got eaten" color language across

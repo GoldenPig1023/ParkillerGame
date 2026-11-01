@@ -3,8 +3,8 @@ import type { RewardGrant, RewardReason } from '../core/gameFlow/turnManager'
 import { ToastFadeOutTracker, type ToastDisplayState } from '../hooks/toastFadeOutHold'
 
 // A capture/finish reward used to be a single small text line tucked into the corner HUD panel -
-// reported directly as feeling too serious/stiff for what should be an exciting moment ("사람들이
-// 스트레스를 풀수있게... 재미난 감이 들게"). This is a proper celebratory pop-in toast instead:
+// reported directly as feeling too serious/stiff for what should be an exciting moment (so people
+// can relieve stress and have fun). This is a proper celebratory pop-in toast instead:
 // bounces in center-stage, holds briefly, fades out - the kind of "+20!" moment other games give a
 // capture, not a status line you might not even notice.
 //
@@ -17,9 +17,8 @@ import { ToastFadeOutTracker, type ToastDisplayState } from '../hooks/toastFadeO
 const FADE_OUT_MS = 350
 
 // The forfeited ("Perdida") variant reused this same flat pop-in and a plain gray card - reported
-// directly as unimpressive ("이런알림은 멋이없다... 더화려한 시각적효과... 더멋진 애니메이션효과와
-// 멋진 3D효과를넣어달라" - this notification isn't cool, give it flashier visuals, better animation,
-// a nice 3D effect). Gets its own distinct treatment instead of the success cards' golden
+// directly as unimpressive (this notification isn't cool, give it flashier visuals, better
+// animation, a nice 3D effect). Gets its own distinct treatment instead of the success cards' golden
 // celebration (a *lost* reward staying golden/festive would read as the wrong emotion): a real CSS
 // 3D perspective/rotateX flip-down (an actual 3D effect, not just scale/translate), a cracked-glass
 // overlay that flashes on impact, and a light-sweep shine across the card - dramatic and eye-
@@ -89,8 +88,8 @@ export function RewardToast({ pendingReward, forfeitedReward }: { pendingReward:
       <div style={displayedForfeited ? forfeitedCardStyle : cardStyle} className={cardClassName}>
         {!displayedForfeited && (
           <>
-            {/* Requested directly ("현재 알림은 경고표시같은게 맘에들지않는다... 장식을 많이 넣어서" -
-                the current notification looks like a warning sign, add lots of decoration): a plain
+            {/* Requested directly (the current notification looks like a warning sign, add lots of
+                decoration): a plain
                 flat gold rectangle with no border ornament at all reads exactly like a caution
                 banner, not a prize. A thin double-line inner border (the same "two parallel gold
                 lines just inside the edge" language the board art's own frame already uses) plus a
@@ -130,8 +129,8 @@ export function RewardToast({ pendingReward, forfeitedReward }: { pendingReward:
         </div>
       </div>
       <style>{`
-        /* Requested directly alongside the border/corner decoration above ("애니머션과 3D효과
-           넣어달라" - add animation and a 3D effect): the old entrance was a flat scale+translateY
+        /* Requested directly alongside the border/corner decoration above (add animation and a 3D
+           effect): the old entrance was a flat scale+translateY
            pop, no rotation at all - the exact "just a notification" flatness that prompted this.
            A real 3D coin-flip (rotateY, like a gold coin spinning face-up) fits a *reward* far
            better than the forfeit card's own trapdoor rotateX below - distinct 3D language for a

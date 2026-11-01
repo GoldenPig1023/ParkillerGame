@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-// Reported directly, with three DevTools Network-tab screenshots ("좀빨리 버튼들을 누르면 이렇게
-// 된다" - if you press the buttons a bit fast, this happens): the same resource (board webp,
+// Reported directly, with three DevTools Network-tab screenshots (if you press the buttons a bit
+// fast, this happens): the same resource (board webp,
 // parkiller.stl) showed up as TWO separate completed Network-log entries (`?retry=2` AND
 // `?retry=3`, both eventually 200) instead of one - because useRobustTexture.ts's/useRobustSTL.ts's
 // `loadWithRetry()` handed each attempt's URL to `loader.load()` with no cancellation hook, so a
@@ -137,7 +137,7 @@ describe('useRobustTexture - watchdog-triggered retries abort the attempt they s
     expect(calls).toHaveLength(1)
   })
 
-  // Reported directly, with a screenshot ("현재 보드의 그림이 반전되였다" - the board's picture is
+  // Reported directly, with a screenshot (the board's picture is
   // currently flipped): after the fetch()+createImageBitmap() switch above, every board rendered
   // vertically upside-down relative to where each piece sits. `THREE.Texture.flipY` has no effect on
   // an ImageBitmap-sourced texture, and createImageBitmap's options (the obvious workaround) aren't

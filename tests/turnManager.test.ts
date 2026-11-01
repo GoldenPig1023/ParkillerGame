@@ -1127,8 +1127,8 @@ describe('TurnManager - PC 3/PC 4/PC 5 rewards', () => {
     expect(grants).toHaveLength(1)
   })
 
-  // Reported directly, twice: first ("장벽이 형성되였을때 주사위가 더블이 되지도않앗는데 장벽에서
-  // 나오는경황이있었다" - a piece came out of a barrier even though the dice weren't a double) led to
+  // Reported directly, twice: first (a piece came out of a barrier even though the dice weren't a
+  // double) led to
   // a reward move unconditionally excluding any piece sitting in the player's own barrier, on the
   // theory that a bonus move spending accumulated reward squares was neither of the rulebook's own
   // two ways to open one (a double, or an opposing Parki). Reported again once that exclusion itself

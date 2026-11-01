@@ -191,7 +191,7 @@ export interface ParkillerPosition {
 // die itself (see Parkiller.corridorPosition and resolveParkillerMove in turnManager.ts) - not an
 // extra distance layered on top of it (three earlier attempts - instant jump, sped-up walk, smooth
 // glide - all still covered corridorLength + dieValue and got rejected every time as not matching
-// the die: "한발자국을 움직여야하는데 8+1=9발자국갔다").
+// the die: a die of 1 should mean exactly one square, not 9).
 export function getParkillerMoveHopWaypoints(
   color: PieceColor,
   before: ParkillerPosition,

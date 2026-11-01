@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef } from 'react'
 import type { RewardGrant } from '../core/gameFlow/turnManager'
 
-// Reported directly ("멋진효과를 넣어달라... 싫증을 느끼지않게" - add a cool effect so players don't
-// get bored): a capture or a finish only ever got RewardToast's own text pop-in, no motion beyond
+// Reported directly (add a cool effect so players don't get bored): a capture or a finish only
+// ever got RewardToast's own text pop-in, no motion beyond
 // that - the win screen's own Confetti got a proper celebration and these two, arguably the most
 // exciting moments *during* a game (not just at the very end), got nothing extra. A quick radial
 // spark burst behind the toast, gone in well under a second so it never blocks the next move,
@@ -19,8 +19,8 @@ const SPARK_COUNT = 18
 const PARKILLER_CAPTURE_SPARK_COUNT = 26
 const SHARD_COUNT = 12
 
-// Requested directly ("...재미난 음악효과와 장식효과를 주어야한다" - a capture should get fun
-// decoration too, not just a notification): capture's own sparks used to be plain circles, same as
+// Requested directly (a capture should get fun decoration too, not just a notification): capture's
+// own sparks used to be plain circles, same as
 // finish's - reused PieceMesh.tsx's own five-pointed star shape (already established there as this
 // game's "something magical is happening" language for children, not a scanning/UI-affordance
 // shape) via a CSS clip-path instead, for capture's sparks specifically. Finish keeps its plain
@@ -32,11 +32,11 @@ const STAR_CLIP_PATH = 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 
 // distinct from the star (magic) and circle (glow) shapes the two success reasons already use.
 const SHARD_CLIP_PATH = 'polygon(50% 0%, 100% 38%, 62% 100%, 15% 68%)'
 
-// Reported directly ("이것은 알림만을 의미한다... 꽃보라같은거나 3D효과를 넣어주면좋을것같다" - this
-// [the toast] is just a notification, what's wanted is something like confetti or a 3D effect):
+// Reported directly (the toast is just a notification, what's wanted is something like confetti or
+// a 3D effect):
 // the radiating sparks above already exist, but they're flat 2D shapes gone in 0.6s - exactly the
-// same complaint the win screen's own Confetti.tsx already had leveled at it once ("꽃보라량이
-// 많게... 3D효과로"), and already fixed there with real rotateX/Y/Z tumbling instead of a flat
+// same complaint the win screen's own Confetti.tsx already had leveled at it once (more confetti,
+// in 3D), and already fixed there with real rotateX/Y/Z tumbling instead of a flat
 // rotate(). Reusing that exact, already-approved technique here (scaled down - this fires on
 // every capture/finish, not once at the very end of a match, so a full win-screen-sized 200-piece
 // blast would be exhausting) rather than inventing a new, unproven effect from scratch.

@@ -210,8 +210,8 @@ describe('getParkillerMoveHopWaypoints', () => {
     // buildTestDefinition's Red lane: homeEntranceTrackIndex 15, homeCorridorWaypoints
     // [[100,0],[100,1],[100,2],[100,3]] (corridorPosition 0 = center = the last one; corridorLength
     // 4). Per the client's own explicit instruction, this stretch is walked one real square at a
-    // time, spending the die itself (a single glide across it was tried and reported back as "그냥
-    // 뛰여넘어서 가게" - just skipping/jumping over it).
+    // time, spending the die itself (a single glide across it was tried and reported back as just
+    // skipping/jumping over it).
     const definition = buildTestDefinition()
     const before = { trackPosition: 15, corridorPosition: 0 }
     const after = { trackPosition: 12, corridorPosition: 4 }

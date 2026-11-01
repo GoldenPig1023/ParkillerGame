@@ -10,7 +10,7 @@ import { pauseIntroMusic, playIntroMusic, setRouteAllowsMusic } from './ui/intro
 import { PlayerCountSelector } from './ui/PlayerCountSelector'
 import { StartScreen } from './ui/StartScreen'
 
-// Reported directly ("이오락의 로딩속도가 매우느리다" - this game's loading speed is very slow):
+// Reported directly (this game's loading speed is very slow):
 // every one of these used to be a plain top-level import, so the whole app - the entire Three.js/
 // @react-three/fiber 3D engine (GameBoardScreen's own BoardScene), Photon Realtime's SDK
 // (OnlineLobbyScreen), and three dev-only tools no real player ever reaches at all - had to
@@ -273,8 +273,8 @@ export default function App() {
 
   // Requested directly ("habría que ponerle alguna música a la introducción del juego"): plays
   // while the player is still setting a game up (start/player-count/color screens). Requested
-  // again, directly, once that much existed ("오락을 하는기간에도... 음악을 넣어야겠는데" - during
-  // the gameplay period too, we need music, so it's not boring): this used to stop the instant
+  // again, directly, once that much existed (during the gameplay period too, we need music, so
+  // it's not boring): this used to stop the instant
   // `screen` became 'game' - now it keeps playing straight through local play as well, same
   // track/mute choice, just no longer silenced once a game actually starts. Still off for any
   // dev-only tool or online play (a separate mode with its own concerns) via the `hash === ''`

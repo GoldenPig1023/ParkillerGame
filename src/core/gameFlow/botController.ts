@@ -8,17 +8,16 @@ import type { Listenable } from './turnManagerLike'
 import type { PlayerState } from './playerState'
 
 // Purely for feel - an instant bot turn would read as broken/too fast rather than "an opponent
-// playing quickly". Reported directly ("봇이 게임하는게 좀 빠르다... 사람의 속도처럼 하되 너무느리거나
-// 시간간격을 너무 오래두지는말라" - the bot plays a bit fast, make it feel human-paced but not too
-// slow either): 700ms (originally just mirroring the human roll-spin delay in useTurnManager's
+// playing quickly". Reported directly (the bot plays a bit fast, make it feel human-paced but not
+// too slow either): 700ms (originally just mirroring the human roll-spin delay in useTurnManager's
 // rollDice(), a different animation with its own separate timing) wasn't long enough to read as an
 // opponent actually deciding - a roll lands and the next action fires again almost immediately,
 // which also made it hard to visually confirm each step was legitimate rather than skipped. First
 // bump was to 1100ms.
 //
 // Reported directly again, this time from the client and visibly frustrated ("no da tiempo a ver
-// qué se ha movido" - it doesn't give time to see what moved; "사람이 게임하는 속도와 동일하게" -
-// make it the same as a human's own playing pace): 1100ms still wasn't enough to actually register
+// qué se ha movido" - it doesn't give time to see what moved; make it the same as a human's own
+// playing pace): 1100ms still wasn't enough to actually register
 // what a bot's own move just did before the next one started. A real human turn - physically
 // rolling two dice, reading the result, deciding which piece to move - realistically takes several
 // seconds, not ~1 second; the previous bump was too timid relative to that actual target. Bumped
@@ -26,7 +25,7 @@ import type { PlayerState } from './playerState'
 // board and deciding" rather than merely "not instant" - still short of dragging, per that same
 // report's own "don't make it too slow either" caveat.
 //
-// Reported a THIRD time, still too fast ("여전히너무빨리 움직이고잇따"), even after the 1100->1800
+// Reported a THIRD time, still too fast, even after the 1100->1800
 // bump above shipped. Verified this class's own scheduling math by hand: every discrete bot action
 // (roll, each move) already waits at least the full think-delay from when it becomes available, not
 // merely from when the previous action was *submitted* - so two consecutive timid bumps clearly
@@ -34,8 +33,8 @@ import type { PlayerState } from './playerState'
 // decisive jump instead of another small increment - long enough that a turn unmistakably reads as
 // "someone is taking their turn," not iterating a smaller number again.
 //
-// Reported a FOURTH time, now the other direction ("너무뜨다... 조금만 대단히 조금만 빠르게해달라" -
-// too slow, make it just a little, just a very little, faster) - right after this file's own
+// Reported a FOURTH time, now the other direction (too slow, make it just a little, just a very
+// little, faster) - right after this file's own
 // Parkiller-hop/first-move sequencing bug fix started actually enforcing waits it had previously
 // been skipping in some cases (see onMoveChoicesReady's own comment), which on top of the already
 // long 3000ms pushed a full turn's pace past "deliberate" into "dragging." Explicitly a *small*
@@ -69,7 +68,7 @@ const DICE_SPIN_MS = 2000
 // this file's own busyUntilMs tracking exists to prevent.
 const PARKI_REVEAL_HOLD_MS = 2000
 // Kept in sync with PieceMesh.tsx's own HOP_DURATION (0.48s, *1000 here) - reported directly
-// ("말속도가 너무빠르므로 느리게 해달라" - the piece speed is too fast, slow it down): a slower hop
+// (the piece speed is too fast, slow it down): a slower hop
 // there with this constant left stale would under-count real animation time, reopening the exact
 // "light speed" bug this file's own busyUntilMs tracking was built to prevent (see this constant's
 // neighboring comment above).
@@ -235,7 +234,7 @@ export class BotController {
   // Real time (Date.now()-based, so it advances correctly under vitest's fake timers too) before
   // which this class won't schedule its *next* action - see this file's own top comment.
   private busyUntilMs = 0
-  // Requested directly ("로컬 게임에는 Pause 기능을 넣어라" - add a Pause feature to local games):
+  // Requested directly (add a Pause feature to local games):
   // pause() cancels whatever this class currently has scheduled (a bot's own think-delay before
   // rolling, or before submitting its already-decided move) without losing track of *what* that
   // action was - each cancelled callback moves here instead of just being dropped, so resume() can
@@ -251,8 +250,7 @@ export class BotController {
   // double's own bonus turn continuing for the same one. Null only before the very first
   // turnStarted this instance ever sees, so that first turn is never mistaken for a handoff.
   private lastTurnColor: PieceColor | null = null
-  // Reported directly ("봇이게임할때 말을 이동할차례가되여서 이동시킬때에도 자기 차례를 알리는 효과를
-  // 넣어달라" - add the same turn-announcing effect for bot moves too): a human's own choosable
+  // Reported directly (add the same turn-announcing effect for bot moves too): a human's own choosable
   // piece gets a whole flashy ring/glow/beam indicator (PieceMesh.tsx) the instant it becomes
   // selectable; a bot's move used to just start hopping with no equivalent cue at all, since that
   // indicator is driven by pendingMoves, which the UI empties outright during a bot's own turn
@@ -281,8 +279,8 @@ export class BotController {
     this.parkiRevealHoldMs = parkiRevealHoldMs
     this.unsubscribers = [
       session.turnStarted.on((player) => this.onTurnStarted(player.color)),
-      // Reported directly ("parki말이 다움직인다음 일반 pawn이 움직이게 해달라" - let the Parkiller
-      // finish moving, *then* let the regular pawn move): requestRoll() (turnManager.ts) emits
+      // Reported directly (let the Parkiller finish moving, *then* let the regular pawn move):
+      // requestRoll() (turnManager.ts) emits
       // diceRolled, then resolves+emits parkillerMoved, then emits moveChoicesReady, all
       // synchronously in that order within one call - but this class used to only extend
       // busyUntilMs for the Parkiller's own hop *after* rollForBot() returned, back in
@@ -570,8 +568,8 @@ export class BotController {
     const chosen = parkillerKills[0] ?? largestAmount ?? finalMoves[0] ?? safeMoves[0] ?? nonBarrierMoves[0] ?? moves[0]
     // Reported directly, with a screenshot: a piece was already glowing as "this is what the bot
     // picked" while the dice (specifically the black Parkiller die) were still visibly spinning -
-    // "오락의 모든과정은 하나씩 차례대로 진행되여야한다" (every step of the game should happen one at a
-    // time, in order). Root cause: onMoveChoicesReady runs synchronously as part of resolving the
+    // every step of the game should happen one at a
+    // time, in order. Root cause: onMoveChoicesReady runs synchronously as part of resolving the
     // roll, well before the dice-spin's own cosmetic reveal animation (or the Parkiller's own
     // automatic move, if this roll had one) has actually finished on screen - this emit used to fire
     // immediately, with nothing waiting on either. session.diceRolled's own subscriber above already

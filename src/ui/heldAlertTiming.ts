@@ -2,8 +2,7 @@
 // unit-testable (this project has no React-rendering harness; same reasoning as
 // toastFadeOutHold.ts/turnHandoffDelay.ts).
 //
-// Reported directly, with a screenshot ("아직 다 이동하지도 않고 이동하려고 하는 참인데 왜 벌써
-// 주사위는 제자리로 돌아가 얼마만큼 움직여야 하는지 알 수 없게 하니" - the piece hasn't even
+// Reported directly, with a screenshot (the piece hasn't even
 // finished moving, it's only about to, yet the dice have already reset so there's no way to tell how
 // far to move): all three dice were sitting on their reset face (1-1-1) with a piece choice still
 // pending. Two separate causes, both here:

@@ -4,8 +4,8 @@ import { recordTextureStatus } from '../ui/diagnostics'
 
 // Client reported directly, with screenshots: pieces and dice rendering fine, floating over
 // completely empty space - no board, no track squares at all. "A menudo el tablero no carga a la
-// primera" / "화면이 천천히 나올때도있고 그림이 안나올때도있고" (sometimes it's slow, sometimes the
-// image just never shows). Root cause: BoardMesh and TrackTile both used to load their textures via
+// primera" (sometimes it's slow, sometimes the image just never shows). Root cause: BoardMesh and
+// TrackTile both used to load their textures via
 // drei/fiber's Suspense-based useTexture/useLoader, each wrapped in <Suspense fallback={null}> - if
 // the underlying fetch ever fails (a network hiccup, a flaky connection, anything), that resource's
 // promise rejects and stays rejected forever in the shared loader cache those hooks share, with no
@@ -22,7 +22,7 @@ import { recordTextureStatus } from '../ui/diagnostics'
 // nothing.
 const RETRY_BASE_DELAY_MS = 800
 // Reported directly, again, still permanently blank on the very first screen a session ever shows
-// ("아직 같은현상이다" - it's still the same thing) - a board image is essential, always-valid,
+// (it's still the same thing) - a board image is essential, always-valid,
 // permanently-hosted content, never a real 404 the way an arbitrary user-supplied URL might be, so
 // there's no scenario where giving up on it forever is the right call. The one real failure mode
 // this actually protects against - a brief, ordinary squeeze on the network right at page load,
@@ -45,8 +45,8 @@ const MAX_RETRY_DELAY_MS = 15_000
 // `preloadTexture`/`useRobustTexture`.
 export const textureCache = new Map<string, THREE.Texture>()
 
-// Reported again after the fix above shipped, still persistently blank ("그림이 비루스먹은것처럼
-// 없어지고 흰판이다" - the image vanishes like it's got a virus, it's a white board) - this time on
+// Reported again after the fix above shipped, still persistently blank (the image vanishes like
+// it's got a virus, it's a white board) - this time on
 // the actual in-game board too, not just the decorative start-screen one. Root cause: this hook had
 // no cross-instance request sharing, unlike the useLoader/useTexture it replaced (both share a
 // single in-flight promise per url via R3F's own Suspense cache). TrackTile mounts once per track
@@ -93,7 +93,7 @@ export function decodeBlobToImage(blob: Blob): Promise<HTMLImageElement> {
 }
 
 // Reported directly, with three DevTools Network-tab screenshots taken a few seconds apart during
-// a real game ("좀빨리 버튼들을 누르면 이렇게 된다" - if you press the buttons a bit fast, this
+// a real game (if you press the buttons a bit fast, this
 // happens): the SAME resource (board_2p.webp, parkiller.stl) showed up as two separate completed
 // log entries - `?retry=2` AND `?retry=3`, both eventually 200 - one of them absurdly slow
 // (12.67s) for a file that loads in well under a second once it gets a clear run. Root cause:
@@ -216,9 +216,8 @@ export function loadWithRetry(url: string, attempt: number) {
 // Reported directly, with a video: even a healthy fetch still takes some non-zero real time, so
 // the very first time a board's texture is actually needed - right as the game screen itself
 // mounts - there's an inherent gap before it's cached, during which BoardMesh/TrackTile render
-// their plain fallback color ("로딩속도가뜬것으로 하여 오락판이 현시될때 먼저 흰판이 되였다가 오락판이
-// 생긴다" - because of the loading speed, the board first becomes a white board before the real
-// board appears). Confirmed directly against the live deployed site: this flash is real, brief
+// their plain fallback color (because of the loading speed, the board first becomes a white board
+// before the real board appears). Confirmed directly against the live deployed site: this flash is real, brief
 // (~150ms), and happens every time a board is shown for the first time in a session. The fix isn't
 // another retry/fallback improvement (the fetch already succeeds fine) - it's not needing to fetch
 // at that moment at all. Call this once, as early as possible (App.tsx, on mount), for every image
@@ -232,7 +231,7 @@ export function preloadTexture(url: string): void {
   loadWithRetry(url, 1)
 }
 
-// Reported directly, still blank ("아직보드가 없어지는문제가 발생하고있다" - the board-disappearing
+// Reported directly, still blank (the board-disappearing
 // problem is still happening), reproducing specifically when clicking through the setup screens
 // very fast right after the app loads: DevTools screenshots showed board_4p.webp/tile-fill.png/
 // tile-border.png/parkiller.stl requests sitting as `(canceled)` with nothing after them - a

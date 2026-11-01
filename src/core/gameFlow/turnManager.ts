@@ -507,8 +507,8 @@ export class TurnManager {
   // the die crossing that corridor instead, one square at a time exactly like every other move in
   // the game - the client's own explicit instruction, after three earlier attempts (instant jump,
   // sped-up walk, smooth glide) all still moved corridorLength + dieValue total and got rejected
-  // every time for not matching the die ("한발자국을 움직여야하는데 8+1=9발자국갔다" - a die of 1
-  // should mean exactly one square, not 9). PK5/PK6: eliminates whichever opposing pawn or Parkiller
+  // every time for not matching the die (a die of 1 should mean exactly one square, not 9).
+  // PK5/PK6: eliminates whichever opposing pawn or Parkiller
   // it lands on exactly, if any - a captured pawn goes back to its yard with no reward to its owner
   // (PK5); a captured opposing Parkiller earns this player PK7's reward, offered by requestRoll()
   // right after this returns. PK5/PK10: landing on an existing barrier (2 pawns already sharing that
@@ -1309,8 +1309,8 @@ export class TurnManager {
   // mandatory capture (verified against the reference: reward moves let the player pick freely
   // which piece to advance, capture available or not).
   //
-  // Reported directly ("장벽이 형성되였을때 주사위가 더블이 되지도않앗는데 장벽에서 나오는경황이있었다"
-  // - a piece came out of a barrier even though the dice weren't a double): unlike offerMoves()'s
+  // Reported directly (a piece came out of a barrier even though the dice weren't a double):
+  // unlike offerMoves()'s
   // own dieA/dieB/sum moves, this never excluded a piece sitting in the player's own barrier at
   // all - a reward can be granted on *any* roll (a regular capturing move, or even a Parkiller-vs-
   // Parkiller kill resolved before offerMoves() ever runs), completely independent of whether that

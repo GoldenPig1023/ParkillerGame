@@ -4,8 +4,8 @@ import type { PieceColor } from '../core/pieceColor'
 
 // Reported directly, with two screenshots (one side already back at the main menu after
 // confirming "Sí, salir", the other side's own screen still showing the game in progress with no
-// acknowledgment anything happened) - "이렇게 나왔으면 상대방들에게 알려야지않니?" (shouldn't the
-// other players be told when someone leaves like that?). The game already keeps running for
+// acknowledgment anything happened) - shouldn't the
+// other players be told when someone leaves like that? The game already keeps running for
 // everyone still connected on purpose (BotController.takeOverColor - OnlineLobbyScreen's own
 // onActorLeft handler hands the departed seat to a bot instead of ending the match for the whole
 // room over one person leaving), but that handoff happened with zero on-screen acknowledgment -

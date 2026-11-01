@@ -40,14 +40,13 @@ import type { RoomTransport } from './roomTransport'
 // TURN_CHANGE_HOLD_MS, applied by useTurnManager.ts's own turnStarted handler regardless of which
 // TurnManagerLike implementation feeds it (this one included) - no separate handling needed here
 // for that case. An earlier attempt bumped this constant itself to 20000 in response to a request
-// for that turn-handoff gap, conflating the two; corrected directly ("주사위가 돌아가는시간을 길게
-// 해달라는의미는전혀없다" - never meant to lengthen the dice/move-reveal timing itself) back to its
-// original floor.
+// for that turn-handoff gap, conflating the two; corrected directly (the client never meant to
+// lengthen the dice/move-reveal timing itself) back to its original floor.
 const REMOTE_MOVE_PACING_MS = 2000
 // Kept in sync with ParkillerMesh.tsx's own PARKI_REVEAL_HOLD_MS (that constant's own doc
 // comment) - the Parkiller's own hop no longer starts the instant the dice reveal finishes, it now
-// waits this much longer first. Reported directly ("주사위결과가... 결과가 떨어지자마자 급하게
-// 벌써움직이는 현상이잇다" - it already starts moving hastily the instant the result drops): without
+// waits this much longer first. Reported directly (it already starts moving hastily the instant
+// the result drops): without
 // this, a diceRolled broadcast carrying a large black-die value could have its own Parkiller hop
 // still genuinely playing on this client's screen well after this file's own pacing considered it
 // safe to apply the *next* queued broadcast - the same "reverts, then catches up" symptom class
